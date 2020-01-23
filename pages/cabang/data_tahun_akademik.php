@@ -8,7 +8,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title ">Data Tahun Akademik</strong>
-                                <a href="tambah_tahun_akademik.php" class="btn btn-success float-right ">Tambah Data</a>
+                                <a href="?hal=tambah_tahun_akademik" class="btn btn-success float-right ">Tambah Data</a>
                             </div>
                             <div class="card-body">
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">

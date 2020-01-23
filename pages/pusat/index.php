@@ -121,41 +121,32 @@ if (isset($_SESSION["pusat"])) {
             </div>
         </header><!-- /header -->
         <!-- Header-->
-
         <div id="right-panel" class="">
-
         		<?php
-                $hal = @$_GET['hal'];
-                $modul = "";
-                $default = $modul."dashboard.php";
-                if(!$hal){
-                    require_once "$default";
-                }else{
-                    switch($hal){
-                        case $hal:
-                        if(is_file($modul.$hal.".php")){
-                            require_once $modul.$hal.".php";
-                        }else{
+                    $hal = @$_GET['hal'];
+                    $modul = "";
+                    $default = $modul."dashboard.php";
+                    if(!$hal){
+                        require_once "$default";
+                    }else{
+                        switch($hal){
+                            case $hal:
+                            if(is_file($modul.$hal.".php")){
+                                require_once $modul.$hal.".php";
+                            }else{
+                                require_once "$default";
+                            }
+                            break;
+                            default:
                             require_once "$default";
                         }
-                        break;
-                        default:
-                        require_once "$default";
                     }
-                }
-
                 ?>
 
     </div><!-- /#right-panel -->
-        
-
-
-        <div class="clearfix"></div>
-
-
+    <div class="clearfix"></div>
     </div><!-- /#right-panel -->
-
-    <!-- Right Panel -->
+<!-- Right Panel -->
 <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
