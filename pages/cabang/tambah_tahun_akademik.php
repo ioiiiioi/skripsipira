@@ -37,7 +37,7 @@
                                             </div>
 
                                             <br>
-                                            <div class="form-actions form-group float-right">
+                                            <div class="form-actions form-group float-left">
                                                 <button type="submit" class="btn btn-info" name="tambah_tahun">Simpan</button>
                                                 &nbsp;
                                                 &nbsp;

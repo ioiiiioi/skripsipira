@@ -7,7 +7,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title ">Data Jenis Pembayaran</strong>
-                                <a href="tambah_jenis_pembayaran.php" class="btn btn-success float-right ">Tambah Data</a>
+                                <a href="?hal=tambah_jenis_pembayaran" class="btn btn-success float-right ">Tambah Data</a>
                             </div>
                             <div class="card-body">
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
