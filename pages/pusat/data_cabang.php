@@ -12,7 +12,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title ">Data Cabang</strong>
-                                <a href="tambah_data_cabang.php" class="btn btn-success float-right ">Tambah</a>
+                                <a href="?hal=tambah_data_cabang" class="btn btn-success float-right ">Tambah</a>
                             </div>
                             <div class="card-body">
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">

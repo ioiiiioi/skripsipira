@@ -60,12 +60,12 @@ if (isset($_SESSION["pusat"])) {
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Olah Data</a>
                         <ul class="sub-menu children dropdown-menu">                            
-                            <li ><i class="fa fa-puzzle-piece"></i><a href="?hal=data_bagian">Olah Data Bagian</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="?hal=data_subbagian">Olah Data Subbagian</a></li>
+                            <li ><i class="fa fa-bars"></i><a href="?hal=data_bagian">Olah Data Bagian</a></li>
+                            <li><i class="fa fa-bars"></i><a href="?hal=data_subbagian">Olah Data Subbagian</a></li>
                             <li><i class="fa fa-bars"></i><a href="?hal=data_anggaran">Olah Data Anggaran</a></li>
 
-                            <li><i class="fa fa-id-card-o"></i><a href="?hal=data_user">Olah Data User</a></li>
-                            <li><i class="fa fa-exclamation-triangle"></i><a href="?hal=data_cabang">Olah Data Cabang</a></li>
+                            <li><i class="fa fa-bars"></i><a href="?hal=data_user">Olah Data User</a></li>
+                            <li><i class="fa fa-bars"></i><a href="?hal=data_cabang">Olah Data Cabang</a></li>
                         </ul>
                     </li>
 
@@ -96,7 +96,7 @@ if (isset($_SESSION["pusat"])) {
             <div class="top-left">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.php"><span class="font-weight-bold text-info">KUSUMA</span> <span>MAHARDIKA</span></a>
-                    <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
+                    <a class="navbar-brand hidden" href="./"><img src="../../images/2.png" alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
@@ -108,7 +108,7 @@ if (isset($_SESSION["pusat"])) {
 
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="">
+                            <img class="user-avatar rounded-circle" src="../../images/admin.jpg" alt="">
                             Admin
                         </a>
                     </div>
@@ -142,7 +142,7 @@ if (isset($_SESSION["pusat"])) {
                         }
                     }
                 ?>
-
+        
     </div><!-- /#right-panel -->
     <div class="clearfix"></div>
     </div><!-- /#right-panel -->

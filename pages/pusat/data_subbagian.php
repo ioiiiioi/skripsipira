@@ -8,7 +8,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title ">Data Sub Bagian</strong>
-                                <a href="tambah_data_subbagian.php" class="btn btn-success float-right ">Tambah</a>
+                                <a href="?hal=tambah_data_subbagian" class="btn btn-success float-right ">Tambah</a>
                             </div>
                             <div class="card-body">
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">

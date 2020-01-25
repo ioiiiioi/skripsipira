@@ -9,23 +9,23 @@
                             <div class="card-header">
                                 <strong class="card-title ">Update Profile</strong>
                             </div>
-                            <div class="card-body">
+                                <div class="card-body">
                                 
                                 <div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Ubah Foto Profil</label>
-                                    <input type="file" class="custom-file" id="exampleInputEmail1" name="gambar" placeholder="Enter Nama">
+                                    <input type="file" class="custom-file" id="exampleInputEmail1" name="gambar">
                                 </div>
                                 <label>Nama</label>
-                                    <input type="text" name="" class="form-control">
+                                    <input type="text" name="" class="form-control"  placeholder="Enter Nama">
                                 </div>
                                 <div>
                                 <label>Username</label>
-                                    <input type="text" name="" class="form-control">
+                                    <input type="text" name="" class="form-control" placeholder="Username">
                                 </div>
                                 <div>
                                 <label>Website</label>
-                                    <input type="text" name="" class="form-control">
+                                    <input type="text" name="" class="form-control"  placeholder="Enter URL">
                                 </div>
                                 <div>
                                     <label>Bio</label>

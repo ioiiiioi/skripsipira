@@ -8,8 +8,8 @@
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title ">Data Cash Out</strong>
-                                <a href="tambah_cash_out.php" class="btn btn-success float-right ">Tambah</a>
-                                <a href="cetak_cash_out.php" class="btn btn-info float-right ">Cetak</a>
+                                <a href="?hal=tambah_cash_out" class="btn btn-success float-right ">Tambah</a>
+                                <a href="?hal=cetak_cash_out" class="btn btn-info float-right ">Cetak</a>
                             </div>
                             <div class="card-body">
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
