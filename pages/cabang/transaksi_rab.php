@@ -7,7 +7,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title ">Transaksi RAB</strong>
+                                <strong class="card-title ">Transaksi</strong>
                                 <a href="?hal=tambah_transaksi_rab" class="btn btn-success float-right ">Tambah Data</a>
                             </div>
                             <div class="card-body">

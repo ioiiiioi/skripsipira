@@ -72,7 +72,7 @@ if (isset($_SESSION["cabang"])) {
                             <a href="?hal=update_profile"><i class="menu-icon fa fa-user"></i>Update Profile</a>
                         </li>
                         <li>
-                            <a href="?hal=transaksi_rab"><i class="menu-icon fa fa-credit-card"></i>Transaksi RAB</a>
+                            <a href="?hal=transaksi_rab"><i class="menu-icon fa fa-credit-card"></i>Transaksi</a>
                         </li>
                         <li>
                             <a href="?hal=pembayaran_registrasi"><i class="menu-icon fa fa-money"></i>Pembayaran Registrasi</a>
@@ -109,7 +109,7 @@ if (isset($_SESSION["cabang"])) {
 
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="../../images/admin.jpg" alt="">
+                            <img class="user-avatar rounded-circle" src="../../images/pira.jpg" alt="">
                             Admin
                         </a>
                     </div>

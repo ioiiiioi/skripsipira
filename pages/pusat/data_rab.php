@@ -22,7 +22,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $query="SELECT * FROM tb_subbagian";
+                                            $query="SELECT * FROM tb_transrab";
                                             $result=$db->query($query);
                                             $num_result=$result->num_rows;
                                             if ($num_result > 0 ) { 

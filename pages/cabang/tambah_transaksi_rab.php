@@ -31,7 +31,7 @@ if (!isset($_SESSION)) {
 																								<select name="sub" id="sub" class="form-control select2" style="width: 100%;">
 																										<option selected="selected">Pilih Sub-Bagian</option>
 																										<?php
-																												$no=1;
+																												// $no=1;
 																												$query="SELECT * FROM tb_subbagian";
 																												$result=$db->query($query);
 																												$num_result=$result->num_rows;
@@ -51,6 +51,18 @@ if (!isset($_SESSION)) {
 																							<label>Anggaran</label>
 																							<select name="anggaran" id="anggaran" class="form-control select2" style="width: 100%;">
 																									<option value="">Pilih Anggaran</option>
+																									<?php
+																										$query="SELECT * FROM tb_anggaran";
+																										$result=$db->query($query);
+																										$num_result=$result->num_rows;
+																										if ($num_result > 0 ) { 
+																												while ($data=mysqli_fetch_assoc($result)) {
+																												extract($data);
+																										?>
+																											<option value="<?php echo $id_anggaran; ?>">
+																													<?php echo $nm_anggaran; ?>
+																											</option>
+																										<?php }} ?>
 																							</select>
 																						</div>
 	
@@ -60,7 +72,7 @@ if (!isset($_SESSION)) {
 																							<select class="form-control select2" name="tahun_akademik">
 																									<option>Pilih</option>
 																									<?php
-																									$no=1;
+																									// $no=1;
 																									$query="SELECT * FROM tb_ta";
 																									$result=$db->query($query);
 																									$num_result=$result->num_rows;
@@ -69,7 +81,7 @@ if (!isset($_SESSION)) {
 																											extract($data);
 																							?>
 																											<option value="<?php echo $id_ta; ?>">
-																													<?php echo $id_ta; ?>
+																													<?php echo $tahun; ?>
 																											</option>
 																											<?php }} ?>
 																							</select>
