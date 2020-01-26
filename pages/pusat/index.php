@@ -14,7 +14,7 @@ if (isset($_SESSION["pusat"])) {
 
   extract($extract);
 
-  echo $id;
+//   echo $id;
 
  ?>
 

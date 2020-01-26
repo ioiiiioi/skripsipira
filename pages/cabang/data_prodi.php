@@ -24,7 +24,7 @@
                             <tbody>
 
                                 <?php
-                                            $query="SELECT * FROM tb_prodi";
+                                            $query="SELECT * FROM tb_prodi WHERE status_aktif='1'";
                                             $result=$db->query($query);
                                             $num_result=$result->num_rows;
                                             if ($num_result > 0 ) { 
@@ -52,8 +52,8 @@
                                             <?php echo $semester; ?>
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-primary">Edit</button> |
-                                            <button type="button" class="btn btn-danger">Hapus</button>
+                                            <a href="?hal=edit_data_prodi&id=<?php echo $id_prodi; ?>" class="btn btn-primary">Edit</a>
+                                            <a href="../../command/curd.php?hapus=prodi&id=<?php echo $id_prodi; ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data <?php echo $nm_prodi;?> ?')">Delete</a>
                                         </td>
                                     </tr>
 
@@ -64,5 +64,3 @@
                     </div>
                 </div>
             </div>
-
-            <div class="clearfix"></div>

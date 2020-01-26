@@ -27,9 +27,7 @@ if (isset($_SESSION["pusat"])) {
                 <div class="card-body card-block">
                   <form action="../../command/curd.php" method="post" class="">
                     <div class="form-group">
-                      <div>
-                        <label> <b> Id Auto Generated </b> </label>
-                      </div>
+                      
                       <label>Nama Data Bagian </label>
                         <input type="text" name="nama_bagian" class="form-control col-sm-8">
                     </div>

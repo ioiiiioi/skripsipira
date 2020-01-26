@@ -14,20 +14,13 @@ if (isset($_SESSION["pusat"])) {
 
   extract($extract);
 
-if (isset($_GET['id'])) {
-	$id = $_GET['id'];
+  if (isset($_GET['id'])) {
+    $id = $_GET['id'];
 
-	$query = mysqli_query($db, "SELECT * FROM tb_anggaran WHERE id_anggaran = '$id'");
-	$place = mysqli_fetch_assoc($query);
-
-	// var_dump($id);
-	// die;
-}
-
-
+    $query = mysqli_query($db, "SELECT * FROM tb_anggaran WHERE id_anggaran = '$id'");
+    $place = mysqli_fetch_assoc($query);
+  }
  ?>
-
-
 
 <body>
   
@@ -44,7 +37,6 @@ if (isset($_GET['id'])) {
                       
                       <label>Nama Anggaran </label>
                       	<input type="hidden" name="id_anggaran" class="form-control col-sm-8" value="<?php echo $place['id_anggaran']; ?>">
-
                       	<input type="text" name="nama_anggaran" class="form-control col-sm-8" placeholder="<?php echo $place['nm_anggaran']; ?>">
                     </div>
                     <div class="form-actions form-group">
@@ -68,4 +60,5 @@ if (isset($_GET['id'])) {
 }else{
     echo "<script>window.location='../../login.php';</script>";
 }
+
 ?>

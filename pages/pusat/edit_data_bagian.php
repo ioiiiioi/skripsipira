@@ -45,7 +45,7 @@ if (isset($_GET['id'])) {
                       <label>Nama Data Bagian </label>
                       	<input type="hidden" name="id_bagian" class="form-control col-sm-8" value="<?php echo $place['id_bagian']; ?>">
 
-                        <input type="text" name="nama_bagian" class="form-control col-sm-8" placeholder="<?php echo $place['nm_bagian']; ?>">
+                        <input type="text" name="nama_bagian" required="true" class="form-control col-sm-8" placeholder="<?php echo $place['nm_bagian']; ?>">
                     </div>
                     <div class="form-actions form-group">
                     <button type="submit" class="btn btn-info" name="edit_bagian">Simpan</button> |

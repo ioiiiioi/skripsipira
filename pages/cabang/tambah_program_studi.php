@@ -11,11 +11,7 @@
                                 <div class="card-body card-block">
                                     <form action="../../command/curd.php" method="post" class="">
                                         <div class="form-group">
-                                            <!-- <div>
-                                                <label>Nomer ID Program Studi</label>
-                                                <input type="text" name="" class="form-control col-sm-8">
-                                            </div> -->
-                                        
+                                         
                                         <div>
                                             <label>Nama Program Studi</label>
                                             <input type="text" name="nama_prodi" class="form-control col-sm-8">
@@ -31,7 +27,6 @@
                                         <div>
                                             <label>Nama Ketua Program Studi</label>
                                             <input type="text" name="nama_ketua" class="form-control col-sm-8">
-                                            <label>
                                         </div>
                                             
                                         <br>
@@ -58,10 +53,10 @@
                                             
                                         <br>
                                         <div class="form-actions form-group float-left">
-                                        <button type="submit" class="btn btn-info" name="tambah_prodi">Simpan</button>
-                                        &nbsp;
-                                        &nbsp;
-                                        <button type="submit" class="btn btn-danger">Batal</button>
+                                            <button type="submit" class="btn btn-info" name="tambah_prodi">Simpan</button>
+                                            &nbsp;
+                                            &nbsp;
+                                            <a href="index.php?hal=data_prodi" class="btn btn-danger">Batal</a>
                                         </div>
                                         </div>
                                 

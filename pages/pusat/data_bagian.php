@@ -22,7 +22,8 @@
                                     <tbody>
 
                                         <?php
-                                            $query="SELECT * FROM tb_bagian";
+                                            $stat = 1;
+                                            $query="SELECT * FROM tb_bagian WHERE status_aktif='1'";
                                             $result=$db->query($query);
                                             $num_result=$result->num_rows;
                                             if ($num_result > 0 ) { 

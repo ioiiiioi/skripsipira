@@ -45,13 +45,13 @@ if (isset($_POST["tambah_bagian"])) {
   // die;
 
   //query
-  $sql_tambah = "INSERT INTO tb_bagian VALUES ('$idBagian', '$nama')";
+  $sql_tambah = "INSERT INTO tb_bagian VALUES ('$idBagian', '$nama','1')";
   $query = mysqli_query($db, $sql_tambah);
 
   if ($query) {
     header('Location: ../pages/pusat/index.php?hal=data_bagian');
   } else {
-    header('Location: ../index.php?hal=gagal');
+    echo "Gagal";
   }
 }
 
@@ -87,7 +87,7 @@ if (isset($_POST["tambah_subbagian"])) {
   }
 
   //query
-  $sql_tambah = "INSERT INTO tb_subbagian VALUES ('$idSubbagian', '$idBagian', '$nama')";
+  $sql_tambah = "INSERT INTO tb_subbagian VALUES ('$idSubbagian', '$idBagian', '$nama','1')";
   $query = mysqli_query($db, $sql_tambah);
 
   if ($query) {
@@ -129,7 +129,7 @@ if (isset($_POST["tambah_anggaran"])) {
   }
 
   //query
-  $sql_tambah = "INSERT INTO tb_anggaran VALUES ('$idAnggaran', '$idSubbagian', '$nama')";
+  $sql_tambah = "INSERT INTO tb_anggaran VALUES ('$idAnggaran', '$idSubbagian', '$nama','1')";
   $query = mysqli_query($db, $sql_tambah);
 
 
@@ -161,7 +161,7 @@ if (isset($_POST["tambah_user"])) {
   $idUser  = KodeOtomatis($db, 'tb_user', 'id_user', '', '', '');
 
   //query
-  $sql_tambah = "INSERT INTO tb_user VALUES ('$idUser', '$idcabang', '$nama', '$username', '$password', '$telp', '$email', '$kelamin', '$level')";
+  $sql_tambah = "INSERT INTO tb_user VALUES ('$idUser', '$idcabang', '$nama', '$username', '$password', '$telp', '$email', '$kelamin', '$level','1')";
   $query = mysqli_query($db, $sql_tambah);
 
   if ($query) {
@@ -174,9 +174,6 @@ if (isset($_POST["tambah_user"])) {
 
 
 if (isset($_POST['edit_bagian'])) {
-
-  // var_dump($_POST);
-  // die;
 
     $id = $_POST["id_bagian"];
 
@@ -254,18 +251,22 @@ if (isset($_POST['edit_user'])) {
   // die;
 
     $id = $_POST["id_user"];
+    $sql = "SELECT * FROM tb_user WHERE id_user='$id'";
+    $que = mysqli_query($db, $sql);
+    $place = mysqli_fetch_assoc($que);
+
 
     //ambil data
-    $name = $_POST['name'];
-    $telp = $_POST['telp'];
-    $kelamin = $_POST['kelamin'];
-    $email = $_POST['email'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $level = $_POST['level'];
+    $name = (empty($_POST['name'])) ? $place['nm_user']: $_POST['name'];
+    $telp = (empty($_POST['telp'])) ? $place['notlp']: $_POST['telp'];
+    $kelamin = (empty($_POST['kelamin'])) ? $place['jkelamin']: $_POST['kelamin'];
+    $email = (empty($_POST['email'])) ? $place['email']: $_POST['email'];
+    $username = (empty($_POST['username'])) ? $place['username']: $_POST['username'];
+    $password = (empty($_POST['password'])) ? $place['password']: $_POST['password'];
+    $level = (empty($_POST['level'])) ? $place['luser']: $_POST['level'];
 
     // buat query
-    $sql_user = "UPDATE tb_user SET nm_user='$nama', username='$username', password='$password', notlp='$telp', email='$email', jkelamin='$kelamin', luser='$level' WHERE id_user='$id'";
+    $sql_user = "UPDATE tb_user SET nm_user='$name', username='$username', password='$password', notlp='$telp', email='$email', jkelamin='$kelamin', luser='$level' WHERE id_user='$id'";
 
     // $query = mysqli_query($db, $sql_user);
     $simpan = $db->query($sql_user);
@@ -283,63 +284,123 @@ if (isset($_POST['edit_user'])) {
 
 
 
-$hapus = $_GET["hapus"];
+if (isset($_GET["hapus"])){
 
-if ($hapus == "bagian") {
+  $hapus = $_GET["hapus"];
+
+  if ($hapus == "prodi") {
+      $id = $_GET["id"];
+
+      // buat query hapus
+      $sql = "UPDATE tb_prodi SET status_aktif='0' WHERE id_prodi=$id";
+      $query = mysqli_query($db, $sql);
+      
+      // apakah query hapus berhasil?
+      if( $query ){
+          header('Location: ../pages/cabang/index.php?hal=data_prodi');
+      } else {
+          die("gagal menghapus!!.");
+      }
+  }
+  if ($hapus == "bagian") {
+      $id = $_GET["id"];
+
+      // buat query hapus
+      $sql = "UPDATE tb_bagian SET status_aktif='0' WHERE id_bagian=$id";
+      $query = mysqli_query($db, $sql);
+      
+      // apakah query hapus berhasil?
+      if( $query ){
+          header('Location: ../pages/pusat/index.php?hal=data_bagian');
+      } else {
+          die("gagal menghapus!!.");
+      }
+  }
+  if ($hapus == "subbagian") {
+      $id = $_GET["id"];
+
+      // buat query hapus
+      $sql = "UPDATE tb_subbagian SET status_aktif='0' WHERE id_subbagian=$id";
+      $query = mysqli_query($db, $sql);
+
+      // apakah query hapus berhasil?
+      if( $query ){
+          header('Location: ../pages/pusat/index.php?hal=data_subbagian');
+      } else {
+          die("gagal menghapus...");
+      }
+  }
+  if ($hapus == "anggaran") {
+      $id = $_GET["id"];
+
+      // buat query hapus
+      $sql = "UPDATE tb_anggaran SET status_aktif='0' WHERE id_anggaran=$id";
+      $query = mysqli_query($db, $sql);
+
+      // apakah query hapus berhasil?
+      if( $query ){
+          header('Location: ../pages/pusat/index.php?hal=data_anggaran');
+      } else {
+          die("gagal menghapus...");
+      }
+  }
+  if ($hapus == "user") {
+      $id = $_GET["id"];
+
+      // buat query hapus
+      $sql = "UPDATE tb_user SET status_aktif='0' WHERE id_user=$id";
+      $query = mysqli_query($db, $sql);
+
+      // apakah query hapus berhasil?
+      if( $query ){
+          header('Location: ../pages/pusat/index.php?hal=data_user');
+      } else {
+          die("gagal menghapus...");
+      }
+  }
+  if ($hapus == "prodi") {
     $id = $_GET["id"];
 
     // buat query hapus
-    $sql = "DELETE FROM tb_bagian WHERE id_bagian=$id";
+    $sql = "UPDATE tb_prodi SET status_aktif='0' WHERE id_prodi=$id";
     $query = mysqli_query($db, $sql);
-
+    
     // apakah query hapus berhasil?
     if( $query ){
-        header('Location: ../pages/pusat/index.php?hal=data_bagian');
+        header('Location: ../pages/cabang/index.php?hal=data_prodi');
     } else {
-        die("gagal menghapus...");
+        die("gagal menghapus!!.");
     }
-}
-if ($hapus == "subbagian") {
+  }
+  if ($hapus == "TA") {
     $id = $_GET["id"];
 
     // buat query hapus
-    $sql = "DELETE FROM tb_subbagian WHERE id_subbagian=$id";
+    $sql = "UPDATE tb_ta SET status_aktif='0' WHERE id_ta=$id";
     $query = mysqli_query($db, $sql);
-
+    
     // apakah query hapus berhasil?
     if( $query ){
-        header('Location: ../pages/pusat/index.php?hal=data_subbagian');
+        header('Location: ../pages/cabang/index.php?hal=data_tahun_akademik');
     } else {
-        die("gagal menghapus...");
+        die("gagal menghapus!!.");
     }
-}
-if ($hapus == "anggaran") {
+  }
+  if ($hapus == "mahasiswa") {
+    // var_dump($_GET);
     $id = $_GET["id"];
 
     // buat query hapus
-    $sql = "DELETE FROM tb_anggaran WHERE id_anggaran=$id";
+    $sql = "UPDATE tb_mahasiswa SET status_aktif='0' WHERE id_mahasiswa=$id";
     $query = mysqli_query($db, $sql);
-
+    
     // apakah query hapus berhasil?
     if( $query ){
-        header('Location: ../pages/pusat/index.php?hal=data_anggaran');
+        header('Location: ../pages/cabang/index.php?hal=data_mahasiswa');
     } else {
-        die("gagal menghapus...");
+        die("gagal menghapus!!.");
     }
-}
-if ($hapus == "user") {
-    $id = $_GET["id"];
-
-    // buat query hapus
-    $sql = "DELETE FROM tb_user WHERE id_user=$id";
-    $query = mysqli_query($db, $sql);
-
-    // apakah query hapus berhasil?
-    if( $query ){
-        header('Location: ../pages/pusat/index.php?hal=data_user');
-    } else {
-        die("gagal menghapus...");
-    }
+  }
 }
 
 
@@ -348,9 +409,6 @@ if ($hapus == "user") {
 //  -------  CABANG  ---------- //
 
 if (isset($_POST["tambah_prodi"])) {
-
-  // var_dump($_POST);
-  // die;
 
   //ambil data
   $nama = $_POST["nama_prodi"];
@@ -366,7 +424,7 @@ if (isset($_POST["tambah_prodi"])) {
   // die;
 
   //query
-  $sql_tambah = "INSERT INTO tb_prodi VALUES ('$idProdi', '$nama', '$jenjang', '$semester', '$ketua', '$izin')";
+  $sql_tambah = "INSERT INTO tb_prodi VALUES ('$idProdi', '$nama', '$jenjang', '$semester', '$ketua', '$izin','1')";
   $query = mysqli_query($db, $sql_tambah);
 
   if ($query) {
@@ -378,21 +436,14 @@ if (isset($_POST["tambah_prodi"])) {
 
 if (isset($_POST["tambah_tahun"])) {
 
-  // var_dump($_POST);
-  // die;
-
   //ambil data
   $mulai = $_POST['mulai_kuliah'];
   $selesai = $_POST['selesai_kuliah'];
   $semester = $_POST['semester'];
   $idTahun = array_shift(explode('-', $mulai));
 
-  // var_dump($mulai);
-  // var_dump($idTahun);
-  // die;
-
   //query
-  $sql_tambah = "INSERT INTO tb_ta VALUES ('$idTahun', '$mulai', '$selesai', '$semester')";
+  $sql_tambah = "INSERT INTO tb_ta VALUES ('$idTahun', '$mulai', '$selesai', '$semester','1')";
   $query = mysqli_query($db, $sql_tambah);
 
   if ($query) {
@@ -405,12 +456,7 @@ if (isset($_POST["tambah_tahun"])) {
 
 if (isset($_POST["tambah_mahasiswa"])) {
 
-  // var_dump($_POST);
-  // die;
-
   //ambil data
-  // $tahun = date('Y-m-d');
-  // $idTahun = array_shift(explode('-', $tahun));
   $idProdi = $_POST['id_prodi'];
   $nama = $_POST['nama_mahasiswa'];
   $telp = $_POST['no_telp'];
@@ -419,9 +465,6 @@ if (isset($_POST["tambah_mahasiswa"])) {
 
   $query = mysqli_query($db, "SELECT id_mahasiswa FROM tb_mahasiswa WHERE id_prodi = '$idProdi'");
   $get = mysqli_fetch_array ($query);
-
-  // var_dump($query);
-  // die;
 
     if (!isset($get)) {
       $end = "1";
@@ -444,7 +487,7 @@ if (isset($_POST["tambah_mahasiswa"])) {
     // var_dump($idMahasiwa);
     // die;
 
-  $sql_tambah = "INSERT INTO tb_mahasiswa VALUES ('$idMahasiwa', '$idProdi', '$nama', '$email', '$telp', '$kelamin')";
+  $sql_tambah = "INSERT INTO tb_mahasiswa VALUES ('$idMahasiwa', '$idProdi', '$nama', '$email', '$telp', '$kelamin','1')";
   $query = mysqli_query($db, $sql_tambah);
 
   if ($query) {
@@ -457,9 +500,6 @@ if (isset($_POST["tambah_mahasiswa"])) {
 
 
 if (isset($_POST["transaksi_rab"])) {
-
-  // var_dump($_POST);
-  // die;
 
   //ambil data
   // $tahun = date('Y-m-d');
@@ -484,6 +524,87 @@ if (isset($_POST["transaksi_rab"])) {
   }
 }
 
+if (isset($_POST['edit_prodi'])) {
+  //ambil data
+    $id = $_POST["id_prodi"];
+
+     $sql = "SELECT * FROM tb_prodi WHERE id_prodi='$id'";
+     $que = mysqli_query($db, $sql);
+     $place = mysqli_fetch_assoc($que);
+     // var_dump($place);
+   
+    $nama = (empty($_POST["nama_prodi"])) ? $place['nm_prodi'] : $_POST["nama_prodi"] ;
+    $izin = (empty($_POST["no_izin"])) ? $place['no_izin'] : $_POST["no_izin"] ;
+    $ketua = (empty($_POST["nama_ketua"])) ? $place['ketua'] : $_POST["nama_ketua"] ;
+
+    $jenjang = $_POST["jenjang"];
+    $semester = $_POST["semester"];
+
+    // buat query
+    $sql_user = "UPDATE tb_prodi SET nm_prodi='$nama', jenjang='$jenjang', semester='$semester', ketua='$ketua', no_izin='$izin' WHERE id_prodi='$id'";
+     // mysqli_query($db, $sql_user);
+    $simpan = $db->query($sql_user);
+
+    // apakah query simpan berhasil?
+    if($simpan) {
+        // kalau berhasil alihkan ke halaman index.php dengan status=sukses
+        header('Location: ../pages/cabang/index.php?hal=data_prodi');
+    }else{
+        // kalau gagal alihkan ke halaman indek.php dengan status=gagal
+        echo '<script>alert("User Gagal Disimpan !!");</script>';
+    }
+}
+
+if (isset($_POST["edit_tahun"])) {
+  // var_dump($_POST);
+  //ambil data
+  $idTahun = $_POST['id_ta'];
+
+    $sql = "SELECT * FROM tb_ta WHERE id_ta='$idTahun'";
+    $query = mysqli_query($db, $sql);
+    $place = mysqli_fetch_assoc($query);
+
+  $mulai = (empty($_POST['mulai_kuliah'])) ? $place['mulai']: $_POST['mulai_kuliah'] ;
+  $selesai = (empty($_POST['selesai_kuliah'])) ? $place['selesai']: $_POST['selesai_kuliah'] ;
+  $semester = (empty($_POST['semester'])) ? $place['semester']: $_POST['semester'] ;
+
+  //query
+  $sql_tambah = "UPDATE tb_ta SET mulai='$mulai', selesai='$selesai', semester='$semester' WHERE id_ta='$idTahun'";
+  $query = mysqli_query($db, $sql_tambah);
+
+  if ($query) {
+    header('Location: ../pages/cabang/index.php?hal=data_tahun_akademik');
+  } else {
+    header('Location: ../index.php?hal=gagal');
+  }
+}
+
+if (isset($_POST["edit_mahasiswa"])) {
+  // var_dump($_POST);
+  //ambil data
+  $id_mahasiswa = $_POST['id_mahasiswa'];
+    $sql = "SELECT * FROM tb_mahasiswa WHERE id_mahasiswa='$id_mahasiswa'";
+    $query = mysqli_query($db, $sql);
+    $place = mysqli_fetch_assoc($query);
+
+  $id_prodi = $_POST['id_prodi'];
+  $nm_mahasiswa = (empty($_POST['nm_mahasiswa'])) ? $place['nm_mahasiswa'] : $_POST['nm_mahasiswa'];
+  $email = (empty($_POST['email'])) ? $place['email'] : $_POST['email'];
+  $notlp = (empty($_POST['notlp'])) ? $place['notlp'] : $_POST['notlp'];
+  $jkelamin = $_POST['jkelamin'];
+
+
+  // //query
+  $sql_tambah = "UPDATE tb_mahasiswa SET id_prodi='$id_prodi', nm_mahasiswa='$nm_mahasiswa', email='$email', notlp='$notlp',jkelamin='$jkelamin' WHERE id_mahasiswa='$id_mahasiswa'";
+  $query = mysqli_query($db, $sql_tambah);
+
+  if ($query) {
+    header('Location: ../pages/cabang/index.php?hal=data_mahasiswa');
+  } else {
+    header('Location: ../index.php?hal=gagal');
+  }
+}
+
 
 
 
@@ -499,11 +620,11 @@ function KodeOtomatis($conn, $tabel, $id, $inisial, $index, $panjang)
   
   if($index=='' && $panjang=='')
   {
-	$no_urut	= (int) $id_max;
+    $no_urut	= (int) $id_max;
   }else if($index!='' && $panjang==''){
-	$no_urut    = (int) substr($id_max, $index);
+    $no_urut    = (int) substr($id_max, $index);
   }else{
-	$no_urut	= (int) substr($id_max, $index, $panjang);
+    $no_urut	= (int) substr($id_max, $index, $panjang);
   }
   $no_urut	= $no_urut + 1;
   if($index=='' && $panjang=='')

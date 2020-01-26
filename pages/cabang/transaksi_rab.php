@@ -24,25 +24,19 @@
                                     <tbody>
 
                                         <?php
-                                            $no=1;
-                                            $query="SELECT * FROM tb_transrab";
+                                            $no=0;
+                                            $query="SELECT tb_anggaran.nm_anggaran, tb_transrab.tanggal, tb_transrab.keterangan,tb_transrab.nominal FROM tb_transrab INNER JOIN tb_anggaran ON tb_transrab.id_anggaran=tb_anggaran.id_anggaran";
                                             $result=$db->query($query);
                                             $num_result=$result->num_rows;
                                             if ($num_result > 0 ) { 
                                                 while ($data=mysqli_fetch_assoc($result)) {
+                                                $no++;
                                                 extract($data);
                                         ?>
 
                                         <tr>
-                                            <td><?php echo $no++; ?></td>
-                                            <td>
-                                                <?php 
-                                                    $query = mysqli_query($db, "SELECT nm_anggaran FROM tb_anggaran WHERE id_anggaran = '$id_anggaran'");
-                                                    $get = mysqli_fetch_array ($query);
-
-                                                    echo $get['nm_anggaran'];
-                                                 ?>  
-                                            </td>
+                                            <td><?php echo $no; ?></td>
+                                            <td><?php echo $nm_anggaran;?></td>
                                             <td><?php echo $tanggal; ?></td>
                                             <td><?php echo $keterangan; ?></td>
                                             <td><?php echo number_format($nominal); ?></td>

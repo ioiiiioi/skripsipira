@@ -23,16 +23,17 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                          $no=1;
-                                          $query="SELECT * FROM tb_transrab";
-                                          $result=$db->query($query);
-                                         $num_result=$result->num_rows;
-                                          if ($num_result > 0 ) { 
+                                          $no=0;
+                                          $query="SELECT * FROM id_pengajuan";
+                                          $result=mysqli_query($db,$query);
+                                          if ($result ) { 
+                                             $num_result=$result->num_rows;
                                               while ($data=mysqli_fetch_assoc($result)) {
                                               extract($data);
+                                              $no++;
                                         ?>
                                         <tr>
-                                            <td><?php echo $no++; ?></td>
+                                            <td><?php echo $no; ?></td>
                                             <td><?php echo $id_transrab; ?></td>
                                             <td><?php echo $tanggal; ?></td>
                                             <td><?php echo $keterangan; ?></td>

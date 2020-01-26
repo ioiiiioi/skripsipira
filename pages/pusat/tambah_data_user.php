@@ -55,9 +55,7 @@ if (isset($_SESSION["pusat"])) {
                         <input type="Password" name="password" class="form-control col-sm-8">
                         <label>Cabang</label>
                          <select name="cabang" class="form-control select2 col-sm-8" style="width: 100%;">
-
-                          <option></option>
-
+                          <option hidden="true" elected="selected">Pilih</option>
                           <?php
                               $no=1;
                               $query="SELECT * FROM tb_cabang";
@@ -76,7 +74,7 @@ if (isset($_SESSION["pusat"])) {
 
                       <label>Level User</label>
                          <select name="level" class="form-control select2 col-sm-8" style="width: 100%;">
-                         <option selected="selected"></option>
+                         <option selected="selected" hidden="true">Pilih</option>
                          <option>Manager Keuangan</option>
                          <option>Keuangan Pusat</option>
                          <option>Keuangan Cabang</option>

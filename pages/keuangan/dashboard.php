@@ -1,3 +1,23 @@
+<?php 
+	if (!isset($_SESSION)) {
+        session_start();
+    }
+
+require_once '../../command/connection.php';
+
+if (isset($_SESSION["keuangan"])) {
+  $hal = @$_GET['hal'];
+  $id = $_SESSION['keuangan'];
+
+  $query = mysqli_query($db, "SELECT * FROM tb_user WHERE id_user = '$id'");
+  $extract = mysqli_fetch_assoc($query);
+
+  extract($extract);
+
+  echo $id;
+
+ ?>
+
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -70,10 +90,10 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="dashboard.php"><i class="menu-icon fa fa-laptop"></i>Admin Dashboard </a>
+                        <a href="?hal=dashboard"><i class="menu-icon fa fa-laptop"></i>Admin Dashboard </a>
                     </li>
                     <li>
-                        <a href="info_rab.php"><i class="menu-icon fa fa-info"></i>Info RAB</a>
+                        <a href="?hal=info_rab"><i class="menu-icon fa fa-info"></i>Info RAB</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -85,13 +105,13 @@
     <!-- Right Panel -->
 
     <div id="right-panel" class="right-panel">
-
+               
         <!-- Header-->
         <header id="header" class="header">
             <div class="top-left">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.php"><span class="font-weight-bold text-info">KUSUMA</span> <span>MAHARDIKA</span></a>
-                    <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
+                    <a class="navbar-brand hidden" href="./"><img src="../../images/2.png" alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
@@ -125,15 +145,34 @@
                     <div class="col-sm-4">
                         <div class="page-header float-left">
                             <div class="page-title">
-                                <h1>Admin Dashboard</h1>
+                                <h1>Keuangan</h1>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-
+        
+                <?php
+                    $hal = @$_GET['hal'];
+                    $modul = "";
+                    $default = $modul."dashboard.php";
+                    if(!$hal){
+                        require_once "$default";
+                    }else{
+                        switch($hal){
+                            case $hal:
+                            if(is_file($modul.$hal.".php")){
+                                require_once $modul.$hal.".php";
+                            }else{
+                                require_once "$default";
+                            }
+                            break;
+                            default:
+                            require_once "$default";
+                        }
+                    }
+                ?>
+            </div>
         <div class="clearfix"></div>
 
     </div><!-- /#right-panel -->
@@ -183,3 +222,8 @@
     <script src="assets/js/init/datatables-init.js"></script>
 </body>
 </html>
+<?php
+}else{
+    echo "<script>window.location='../../login.php';</script>";
+}
+?>

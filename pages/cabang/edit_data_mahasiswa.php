@@ -1,7 +1,29 @@
 <?php 
-    require_once '../../command/connection.php';
- ?>
+    if (!isset($_SESSION)) {
+        session_start();
+    }
 
+require_once '../../command/connection.php';
+
+if (isset($_SESSION["cabang"])) {
+  $hal = @$_GET['hal'];
+  $id = $_SESSION['cabang'];
+
+  $query = mysqli_query($db, "SELECT * FROM tb_user WHERE id_user = '$id'");
+  $extract = mysqli_fetch_assoc($query);
+
+  extract($extract);
+
+  if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+  
+    $query = mysqli_query($db, "SELECT * FROM tb_mahasiswa WHERE id_mahasiswa = '$id'");
+    $place = mysqli_fetch_assoc($query);
+  
+  }
+  
+
+ ?>
 
 <body>
 
@@ -15,12 +37,12 @@
                                 <div class="card-header">
                                     <h2>Form Tambah Mahasiswa</h2></div>
                                 <div class="card-body card-block">
-                                    <form action="../../command/curd.php" method="post" class="">
+                                    <form action="../../command/curd.php" method="POST" class="">
                                         <div class="form-group">
                                             <div>
                                                 <label>Nomer ID Program Studi</label>
-                                                <select name="prodi" id="" onchange="cekid();" class="form-control select2" style="width: 100%;">
-                                                    <option selected="selected" hidden="true">Pilih Prodi</option>
+                                                <select name="id_prodi" id="" onchange="cekid();" class="form-control select2" style="width: 100%;">
+                                                    <option selected="selected" value="<?php echo $place['id_prodi']; ?>" hidden='true'><?php echo $place['id_prodi']; ?></option>
                                                     <?php
                                                           $no=1;
                                                           $query="SELECT * FROM tb_prodi";
@@ -31,38 +53,37 @@
                                                               extract($data);
                                                       ?>
                                                         <option value="<?php echo $id_prodi; ?>">
-                                                            <?php echo $id_prodi; ?> |
-                                                            <?php echo $nm_prodi; ?>
+                                                            <?php echo $id_prodi; ?> | <?php echo $nm_prodi; ?>
                                                         </option>
                                                     <?php }} ?>
                                                 </select>
                                             <!-- <label>Nomer Mahasiswa</label> -->
-                                                <input type="text" name="id_prodi" id="id_prodi" hidden="true" class="form-control">
+                                                <input type="text" name="id_mahasiswa" value="<?php echo $place['id_mahasiswa'];?>" hidden="true" class="form-control">
                                             </div>
                                             
                                             <br>
                                             <div>
                                                 <label>Nama Mahasiswa</label>
-                                                <input type="text" name="nama_mahasiswa" class="form-control">
+                                                <input type="text" name="nm_mahasiswa" class="form-control" placeholder="<?php echo $place['nm_mahasiswa'];?>">
                                             </div>
                                                 
                                             <br>
                                             <div>
                                                 <label>Nomer Telepon</label>
-                                                <input type="text" name="no_telp" class="form-control">
+                                                <input type="text" name="notlp" class="form-control" placeholder="<?php echo $place['notlp'];?>">
                                             </div>
 
                                             <br>
                                             <div>
                                                 <label>E-mail</label>
-                                                <input type="email" name="email" id="email" class="form-control">
+                                                <input type="email" name="email" id="email" class="form-control" placeholder="<?php echo $place['email'] ;?>">
                                             </div>
                                                 
                                             <br>
                                             <div>
                                                 <label>Jenis Kelamin</label>
-                                                <select class="form-control select2" name="kelamin" style="width: 100%;">
-                                                    <option selected="selected" hidden="true">Pilih Jenis Kelamin</option>
+                                                <select class="form-control select2" name="jkelamin" style="width: 100%;">
+                                                    <option selected="selected" hidden="true" value="<?php echo $place['jkelamin'] ;?>"><?php echo $place['jkelamin'] ;?></option>
                                                     <option>Laki-Laki</option>
                                                     <option>Perempuan</option>
                                                 </select>
@@ -70,7 +91,7 @@
 
                                             <br>
                                             <div class="form-actions form-group float-right">
-                                                <button type="submit" class="btn btn-info" name="tambah_mahasiswa">Simpan</button>
+                                                <button type="submit" class="btn btn-info" name="edit_mahasiswa">Simpan</button>
                                                 &nbsp;
                                                 &nbsp;
                                                 <button type="submit" class="btn btn-danger">Batal</button>
@@ -107,3 +128,10 @@
     }
 
 </script>
+
+
+<?php
+}else{
+    echo "<script>window.location='../../login.php';</script>";
+}
+?>

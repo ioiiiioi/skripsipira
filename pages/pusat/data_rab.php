@@ -21,6 +21,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php
+                                            $query="SELECT * FROM tb_subbagian";
+                                            $result=$db->query($query);
+                                            $num_result=$result->num_rows;
+                                            if ($num_result > 0 ) { 
+                                                while ($data=mysqli_fetch_assoc($result)) {
+                                                extract($data);
+                                        ?>
                                         <tr>
                                             <td>qwer123</td>
                                             <td>27-01-2014</td>
@@ -31,26 +39,7 @@
                                              <button type="button" class="btn btn-danger">Tolak</button>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>q123eww</td>
-                                            <td>27-01-2015</td>
-                                            <td>SDM</td>
-                                            <td>Yogyakarrta</td>
-                                            <td>
-                                             <button type="button" class="btn btn-success">Setuju</button> | 
-                                             <button type="button" class="btn btn-danger">Tolak</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>dsdr143</td>
-                                            <td>27-01-2016</td>
-                                            <td>SDM</td>
-                                            <td>Yogyakarta</td>
-                                            <td>
-                                             <button type="button" class="btn btn-success">Setuju</button> | 
-                                             <button type="button" class="btn btn-danger">Tolak</button>
-                                            </td>
-                                        </tr>
+                                                <?php }} ?>
                                     </tbody>
                                 </table>
                             </div>
