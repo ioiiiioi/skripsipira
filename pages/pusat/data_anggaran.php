@@ -14,8 +14,8 @@
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Id Subbagian</th>
-                                            <th>Id Anggaran</th>
+                                            <th>No</th>
+                                            <th>Nama Sub Bagian</th>
                                             <th>Nama Anggaran</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -23,8 +23,9 @@
                                     <tbody>
 
                                         <?php
-                                            $query="SELECT * FROM tb_anggaran";
+                                            $query="SELECT tb_subbagian.nm_subbagian, tb_anggaran.nm_anggaran FROM tb_anggaran INNER JOIN tb_subbagian ON tb_anggaran.id_subbagian=tb_subbagian.id_subbagian";
                                             $result=$db->query($query);
+                                            $no = 1;
                                             $num_result=$result->num_rows;
                                             if ($num_result > 0 ) { 
                                                 while ($data=mysqli_fetch_assoc($result)) {
@@ -32,8 +33,8 @@
                                         ?>
 
                                         <tr>
-                                            <td><?php echo $id_subbagian; ?></td>
-                                            <td><?php echo $id_anggaran; ?></td>
+                                            <td><?php echo $no++; ?></td>
+                                            <td><?php echo $nm_subbagian; ?></td>
                                             <td><?php echo $nm_anggaran; ?></td>
                                             <td>
                                             

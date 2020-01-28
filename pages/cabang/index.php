@@ -227,7 +227,9 @@ if (isset($_SESSION["cabang"])) {
         #cellPaiChart{
             height: 160px;
         }
-
+       /* #dataTables_filter {
+            float:right!important;
+        }*/
     </style>
 
 <?php

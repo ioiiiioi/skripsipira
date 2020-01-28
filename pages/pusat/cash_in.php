@@ -29,7 +29,7 @@
 
                                         <?php
                                                 $i = 0;
-                                                $query="SELECT * FROM tb_cashin";
+                                                $query="SELECT tb_cabang.nm_cabang, tb_cashin.tanggal, tb_cashin.uraian, tb_cashin.nominal FROM tb_cashin INNER JOIN tb_cabang ON tb_cashin.id_cabang=tb_cabang.id_cabang";
                                                 $result=$db->query($query);
                                                 $num_result=$result->num_rows;
                                                 if ($num_result > 0 ) { 
@@ -44,7 +44,7 @@
                                             <td><?php echo $tanggal; ?></td>
                                             <td><?php echo $uraian; ?></td>
                                             <td><?php echo $nominal; ?></td>
-                                            <td><?php echo $id_cabang;?></td>
+                                            <td><?php echo $nm_cabang;?></td>
                                         </tr>
 
                                         <?php  }} ?>  

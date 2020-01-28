@@ -20,8 +20,6 @@ if (isset($_SESSION["pusat"])) {
 
 
 <body>
-
-
     <section class="content-header">
       <div class="container">
         <div class="col-lg-12">
@@ -30,38 +28,53 @@ if (isset($_SESSION["pusat"])) {
               <div class="card">
                 <div class="card-header"><h2>Form Tambah Cash In</h2></div>
                 <div class="card-body card-block">
-                  <form action="#" method="post" class="">
+                  <form action="../../command/curd.php" method="POST" class="">
                     <div class="form-group">
+                        
                       <div>
                         <label>Uraian</label>
-                        <div>
-                        <textarea name="textarea-input" id="textarea-input" rows="2" class="form-control col-sm-8"></textarea>
-                        </div>
+                        <textarea name="uraian" id="textarea-input" rows="2" class="form-control col-sm-8"></textarea>
                       </div>
+                        
+
+                      <br>
                       <div>
                       <label>Cabang</label>
-                         <select class="form-control select2 col-sm-8" style="width: 100%;">
-                         <option selected="selected"></option>
-                         <option>Balikpapan</option>
-                         <option>Bandung</option>
-                         <option>Jakarta</option>
-                         <option>Lampung</option>
-                        <option>Majalengka</option>
-                         <option>Pontianak</option>
+                         <select class="form-control select2 col-sm-8" name="id_cabang" style="width: 100%;">
+                         <option selected="selected" hidden="true">Pilih Cabang</option>
+                         <?php
+                            $no=1;
+                            $query="SELECT * FROM tb_cabang";
+                            $result=$db->query($query);
+                            $num_result=$result->num_rows;
+                            if ($num_result > 0 ) { 
+                                while ($data=mysqli_fetch_assoc($result)) {
+                                extract($data);
+                        ?>
+                         <option value="<?php echo $id_cabang; ?>" class="text-uppercase"><?php echo $nm_cabang; ?></option>
+
+                        <?php }} ?>
                          </select>
                         </div>
+
+                        <br>
                         <div>
                         <label>Tanggal</label>
-                        <input type="date" name="" class="form-control col-sm-8">
+                        <input type="date" name="tanggal" class="form-control col-sm-8">
                         </div>
+
+                        <br>
                         <div>
                         <label>Nominal</label>
-                        <input type="text" name="" class="form-control col-sm-8">
+                        <input type="text" name="nominal" class="form-control col-sm-8">
+                        <input type="text" name="id_user" value="<?php echo $id; ?>" hidden='true'>
                         </div>
-                    <div class="form-actions form-group">
-                   </div>
-                    <button type="submit" class="btn btn-info">Simpan</button> |
-                    <button type="submit" class="btn btn-danger">Batal</button>
+
+                        <br>
+                          <div class="form-actions form-group float-left">
+                              <button type="submit" class="btn btn-info" name="tambah_cashin">Simpan</button>
+                              <button type="submit" class="btn btn-danger">Batal</button>
+                         </div>
                   </div>
                   </form>
                 </div>

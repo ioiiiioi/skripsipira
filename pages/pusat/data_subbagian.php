@@ -14,8 +14,8 @@
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>   
-                                            <th>Id Bagian</th>
-                                            <th>Id Subbagian</th>
+                                            <th>No</th>
+                                            <th>Nama Bagian</th>
                                             <th>Nama Sub Bagian</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -23,8 +23,9 @@
                                     <tbody>
 
                                         <?php
-                                            $query="SELECT * FROM tb_subbagian WHERE status_aktif='1'";
+                                            $query="SELECT tb_bagian.nm_bagian, tb_subbagian.id_subbagian, tb_subbagian.nm_subbagian FROM tb_subbagian INNER JOIN tb_bagian ON tb_subbagian.id_bagian=tb_bagian.id_bagian WHERE tb_subbagian.status_aktif='1'";
                                             $result=$db->query($query);
+                                            $no = 1;
                                             $num_result=$result->num_rows;
                                             if ($num_result > 0 ) { 
                                                 while ($data=mysqli_fetch_assoc($result)) {
@@ -33,8 +34,8 @@
 
 
                                         <tr>
-                                            <td><?php echo $id_bagian; ?></td>
-                                            <td><?php echo $id_subbagian; ?></td>
+                                            <td><?php echo $no++; ?></td>
+                                            <td><?php echo $nm_bagian; ?></td>
                                             <td><?php echo $nm_subbagian; ?></td>
                                             <td>
                                              
@@ -52,8 +53,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div><!-- .animated -->
         </div><!-- .content -->

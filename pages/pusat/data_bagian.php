@@ -14,7 +14,7 @@
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
+                                            <th >No</th>
                                             <th>Nama Bagian</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -22,7 +22,7 @@
                                     <tbody>
 
                                         <?php
-                                            $stat = 1;
+                                            $no = 1;
                                             $query="SELECT * FROM tb_bagian WHERE status_aktif='1'";
                                             $result=$db->query($query);
                                             $num_result=$result->num_rows;
@@ -32,7 +32,7 @@
                                         ?>
 
                                         <tr>
-                                            <td><?php echo $id_bagian; ?></td>
+                                            <td><?php echo $no++; ?></td>
                                             <td><?php echo $nm_bagian; ?></td>
                                             <td>
 

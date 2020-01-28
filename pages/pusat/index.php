@@ -108,7 +108,7 @@ if (isset($_SESSION["pusat"])) {
 
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="../../images/admin.jpg" alt="">
+                            <img class="user-avatar rounded-circle" src="../../images/pira.jpg" alt="">
                             Admin
                         </a>
                     </div>
@@ -186,9 +186,9 @@ if (isset($_SESSION["pusat"])) {
 </html>
 
    <style>
-    #weatherWidget .currentDesc {
-        color: #ffffff!important;
-    }
+        #weatherWidget .currentDesc {
+            color: #ffffff!important;
+        }
         .traffic-chart {
             min-height: 335px;
         }

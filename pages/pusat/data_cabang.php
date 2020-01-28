@@ -18,7 +18,7 @@
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
+                                            <th>No</th>
                                             <th>Nama Cabang</th>
                                             <th>Aksi</th>
                                         </tr>
