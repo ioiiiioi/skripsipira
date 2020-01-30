@@ -23,7 +23,7 @@
                                     <tbody>
 
                                         <?php
-                                            $query="SELECT tb_subbagian.nm_subbagian, tb_anggaran.nm_anggaran FROM tb_anggaran INNER JOIN tb_subbagian ON tb_anggaran.id_subbagian=tb_subbagian.id_subbagian";
+                                            $query="SELECT tb_subbagian.nm_subbagian, tb_anggaran.nm_anggaran, tb_anggaran.id_anggaran FROM tb_anggaran INNER JOIN tb_subbagian ON tb_anggaran.id_subbagian=tb_subbagian.id_subbagian";
                                             $result=$db->query($query);
                                             $no = 1;
                                             $num_result=$result->num_rows;
@@ -40,7 +40,7 @@
                                             
                                             <a href="?hal=edit_data_anggaran&id=<?php echo $id_anggaran; ?>" class="btn btn-primary">Edit</a>
                                             
-                                            <a href="../../command/curd.php?hapus=anggaran&id=<?php echo $id_anggaran ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data <?php echo $nm_anggaran;?> ?')">Delete</a>
+                                            <a href="../../command/curd.php?hapus=anggaran&id=<?php echo $id_anggaran; ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data <?php echo $nm_anggaran; ?> ?')">Delete</a>
 
                                             </td>
                                         </tr>

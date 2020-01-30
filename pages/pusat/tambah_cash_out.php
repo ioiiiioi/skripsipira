@@ -26,38 +26,57 @@ if (isset($_SESSION["pusat"])) {
               <div class="card">
                 <div class="card-header"><h2>Form Tambah Cash Out</h2></div>
                 <div class="card-body card-block">
-                  <form action="#" method="post" class="">
+                  <form action="../../command/curd.php" method="POST" class="">
                     <div class="form-group">
-                      <div>
-                        <label>Uraian</label>
+                      
+                        <br>
                         <div>
-                        <textarea name="textarea-input" id="textarea-input" rows="2" class="form-control col-sm-8"></textarea>
-                        </div>
-                      </div>
-                      <div>
-                      <label>Cabang</label>
-                         <select class="form-control select2 col-sm-8" style="width: 100%;">
-                         <option selected="selected"></option>
-                         <option>Balikpapan</option>
-                         <option>Bandung</option>
-                         <option>Jakarta</option>
-                         <option>Lampung</option>
-                        <option>Majalengka</option>
-                         <option>Pontianak</option>
+                         <label>Cabang</label>
+                         <select class="form-control select2 col-sm-8" name="id_cabang" style="width: 100%;">
+                         <option hidden="true" selected="selected">Pilih Kota</option>
+                         <?php 
+                            $sql = "SELECT * FROM tb_cabang WHERE status_aktif='1'";
+                            $result=$db->query($sql);
+                            $num_result=$result->num_rows;
+                            if ($num_result > 0 ) { 
+                                while ($data=mysqli_fetch_assoc($result)) {
+                                extract($data);
+                         ?>
+                         <option class="text-uppercase" value="<?php echo $id_cabang; ?>"><?php echo $nm_cabang; ?></option>
+                         <?php }} ?>
                          </select>
                         </div>
+                        
+                        <br>
                         <div>
-                        <label>Tanggal</label>
-                        <input type="date" name="" class="form-control col-sm-8">
+                          <label>Tanggal</label>
+                          <input type="date" name="tanggal" class="form-control col-sm-8">
                         </div>
+                        
+                        <br>
                         <div>
-                        <label>Nominal</label>
-                        <input type="text" name="" class="form-control col-sm-8">
+                          <label>Uraian</label>
+                          <textarea name="uraian" id="textarea-input" rows="2" class="form-control col-sm-8"></textarea>
                         </div>
-                    <div class="form-actions form-group">
-                   </div>
-                    <button type="submit" class="btn btn-info">Simpan</button> |
-                    <button type="submit" class="btn btn-danger">Batal</button>
+
+                        <br>
+                        <div>
+                          <label>Tujuan</label>
+                          <textarea name="tujuan" id="textarea-input" rows="2" class="form-control col-sm-8"></textarea>
+                        </div>
+                        
+                        <br>
+                        <div>
+                          <label>Nominal</label>
+                          <input type="text" name="nominal" class="form-control col-sm-8">
+                          <input hidden="true" value="<?php echo $id; ?>" name="id_user">
+                        </div>
+                    
+                        <br>
+                        <div class="form-actions form-group">
+                          <button type="submit" class="btn btn-info" name='tambah_cashout'>Simpan</button> |
+                          <a href="?hal=cash_out" class="btn btn-danger">Batal</a>
+                        </div>
                   </div>
                   </form>
                 </div>

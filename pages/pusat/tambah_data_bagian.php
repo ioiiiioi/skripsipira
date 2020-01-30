@@ -33,7 +33,7 @@ if (isset($_SESSION["pusat"])) {
                     </div>
                     <div class="form-actions form-group">
                     <button type="submit" class="btn btn-info" name="tambah_bagian">Simpan</button> |
-                    <button type="submit" class="btn btn-danger">Batal</button>
+                    <a href="?hal=data_bagian" class="btn btn-danger">Batal</a>
                   </div>
                   </form>
                 </div>

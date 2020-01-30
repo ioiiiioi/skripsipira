@@ -44,7 +44,7 @@ if (isset($_SESSION["pusat"])) {
                          <option selected="selected" hidden="true">Pilih Cabang</option>
                          <?php
                             $no=1;
-                            $query="SELECT * FROM tb_cabang";
+                            $query="SELECT * FROM tb_cabang WHERE status_aktif='1'";
                             $result=$db->query($query);
                             $num_result=$result->num_rows;
                             if ($num_result > 0 ) { 
@@ -73,7 +73,7 @@ if (isset($_SESSION["pusat"])) {
                         <br>
                           <div class="form-actions form-group float-left">
                               <button type="submit" class="btn btn-info" name="tambah_cashin">Simpan</button>
-                              <button type="submit" class="btn btn-danger">Batal</button>
+                              <a href="?hal=cash_in" class="btn btn-danger">Batal</a>
                          </div>
                   </div>
                   </form>

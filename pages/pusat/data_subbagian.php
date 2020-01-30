@@ -3,7 +3,6 @@
         <div class="content">
             <div class="animated fadeIn">
                 <div class="row">
-
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
@@ -31,18 +30,13 @@
                                                 while ($data=mysqli_fetch_assoc($result)) {
                                                 extract($data);
                                         ?>
-
-
                                         <tr>
                                             <td><?php echo $no++; ?></td>
                                             <td><?php echo $nm_bagian; ?></td>
                                             <td><?php echo $nm_subbagian; ?></td>
-                                            <td>
-                                             
-                                             <a href="?hal=edit_data_subbagian&id=<?php echo $id_subbagian; ?>" class="btn btn-primary">Edit</a>
-                                            
-                                            <a href="../../command/curd.php?hapus=subbagian&id=<?php echo $id_subbagian ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data <?php echo $nm_subbagian;?> ?')">Delete</a>
-
+                                            <td> 
+                                                <a href="?hal=edit_data_subbagian&id=<?php echo $id_subbagian; ?>" class="btn btn-primary">Edit</a>
+                                                <a href="../../command/curd.php?hapus=subbagian&id=<?php echo $id_subbagian; ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data <?php echo $nm_subbagian;?> ?')">Delete</a>
                                             </td>
                                         </tr>
 
@@ -54,6 +48,6 @@
                         </div>
                     </div>
                 </div>
-            </div><!-- .animated -->
-        </div><!-- .content -->
+            </div>
+        </div>
 

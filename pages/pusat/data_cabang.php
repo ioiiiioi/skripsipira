@@ -27,7 +27,7 @@
 
                                     <?php
                                         $no=1;
-                                        $query="SELECT * FROM tb_cabang";
+                                        $query="SELECT * FROM tb_cabang WHERE status_aktif = '1'";
                                         $result=$db->query($query);
                                         $num_result=$result->num_rows;
                                         if ($num_result > 0 ) { 
@@ -38,8 +38,8 @@
                                             <td><?php echo $no++; ?></td>
                                             <td><?php echo $nm_cabang; ?></td>
                                             <td>
-                                             <a href="" type="button" class="btn btn-primary">Edit</a> | 
-                                             <a href="" type="button" class="btn btn-danger">Hapus</a>
+                                             <a href="?hal=edit_data_cabang&id=<?php echo $id_cabang; ?>" type="button" class="btn btn-primary">Edit</a> | 
+                                             <a href="../../command/curd.php?hapus=cabang&id=<?php echo $id_cabang;?>" type="button" class="btn btn-danger">Hapus</a>
                                             </td>
                                         </tr>
                                         

@@ -34,7 +34,7 @@ if (isset($_SESSION["pusat"])) {
                       <div>
                         <label> Pilih Bagian </label>
                         <select class="form-control col-sm-8" name="idSubbagian">
-                        <option style="font-weight: bold;"> Pilih Subbagian </option>
+                        <option style="font-weight: bold;" hidden="true"> Pilih Subbagian </option>
                             <?php
                                 $no = 1;
                                 $query="SELECT * FROM tb_subbagian";
@@ -53,7 +53,7 @@ if (isset($_SESSION["pusat"])) {
                     </div>
                     <div class="form-actions form-group">
                     <button type="submit" class="btn btn-info" name="tambah_anggaran">Simpan</button> |
-                    <button type="submit" class="btn btn-danger">Batal</button>
+                    <a href="?hal=data_anggaran" class="btn btn-danger">Batal</a>
                   </div>
                   </form>
                 </div>

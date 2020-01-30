@@ -61,37 +61,55 @@ if (isset($_POST["tambah_subbagian"])) {
   $idBagian = $_POST['idBagian'];
   $nama = $_POST["nama_subbagian"];
 
-  if (isset($idBagian)) {
-
-    $query = mysqli_query($db, "SELECT id_bagian FROM tb_subbagian WHERE id_bagian = '$idBagian'");
-    $get = mysqli_fetch_array ($query);
-    
-
-    if (!isset($get)) {
-      $end = "1";
-      $idSubbagian = ($idBagian . $end);
-    }
-    else{
-        $query = mysqli_query($db, "SELECT id_subbagian FROM tb_subbagian WHERE id_bagian = '$idBagian'");
-        foreach ($query as $key => $value) {
-          
-        }
-        $end = end($value);
-        $kodeOtomatis  = KodeOtomatis($db, 'tb_subbagian', $end, '', '', '');
-        var_dump($kodeOtomatis);
-
-        $idSubbagian = ("000" . $kodeOtomatis);
-
-        // die;
-    }
-  }
-
   //query
-  $sql_tambah = "INSERT INTO tb_subbagian VALUES ('$idSubbagian', '$idBagian', '$nama','1')";
+  $sql_tambah = "INSERT INTO tb_subbagian VALUES ('', '$idBagian', '$nama','1')";
   $query = mysqli_query($db, $sql_tambah);
 
   if ($query) {
     header('Location: ../pages/pusat/index.php?hal=data_subbagian');
+  } else {
+    header('Location: ../index.php?hal=gagal');
+  }
+}
+
+if (isset($_POST["tambah_cashin"])) {
+
+  //ambil data
+  // $nama = $_POST["nama_cabang"];
+  $id_user = $_POST['id_user'];
+  $id_cabang = $_POST['id_cabang'];
+  $tanggal = $_POST['tanggal'];
+  $uraian = $_POST['uraian'];
+  $nominal = $_POST['nominal'];
+
+  // //query
+  $sql_tambah = "INSERT INTO tb_cashin VALUES ('', '$id_user','$id_cabang','$tanggal','$uraian','$nominal')";
+  $query = mysqli_query($db, $sql_tambah);
+
+  if ($query) {
+    header('Location: ../pages/pusat/index.php?hal=cash_in');
+  } else {
+    header('Location: ../index.php?hal=gagal');
+  }
+}
+
+if (isset($_POST["tambah_cashout"])) {
+  // var_dump($_POST);
+
+  //ambil data
+  $id_user = $_POST['id_user'];
+  $id_cabang = $_POST['id_cabang'];
+  $tanggal = $_POST['tanggal'];
+  $uraian = $_POST['uraian'];
+  $tujuan = $_POST['tujuan'];
+  $nominal = $_POST['nominal'];
+
+  // //query
+  $sql_tambah = "INSERT INTO tb_cashout VALUES ('', '$id_user','$id_cabang','$tanggal','$tujuan','$uraian','$nominal')";
+  $query = mysqli_query($db, $sql_tambah);
+
+  if ($query) {
+    header('Location: ../pages/pusat/index.php?hal=cash_out');
   } else {
     header('Location: ../index.php?hal=gagal');
   }
@@ -103,33 +121,8 @@ if (isset($_POST["tambah_anggaran"])) {
   $idSubbagian = $_POST['idSubbagian'];
   $nama = $_POST["nama_anggaran"];
 
-  if (isset($idSubbagian)) {
-
-    $query = mysqli_query($db, "SELECT id_anggaran FROM tb_anggaran WHERE id_subbagian = '$idSubbagian'");
-    $get = mysqli_fetch_array ($query);
-    
-
-    if (!isset($get)) {
-      $end = "1";
-      $idAnggaran = ($idSubbagian . $end);
-    }
-    else{
-        $query = mysqli_query($db, "SELECT id_anggaran FROM tb_anggaran WHERE id_subbagian = '$idSubbagian'");
-        foreach ($query as $key => $value) {
-          
-        }
-        $end = end($value);
-        $kodeOtomatis  = KodeOtomatis($db, 'tb_anggaran', $end, '', '', '');
-        var_dump($kodeOtomatis);
-
-        $idAnggaran = ("000" . $kodeOtomatis);
-
-        // die;
-    }
-  }
-
   //query
-  $sql_tambah = "INSERT INTO tb_anggaran VALUES ('$idAnggaran', '$idSubbagian', '$nama','1')";
+  $sql_tambah = "INSERT INTO tb_anggaran VALUES ('', '$idSubbagian', '$nama','1')";
   $query = mysqli_query($db, $sql_tambah);
 
 
@@ -155,8 +148,6 @@ if (isset($_POST["tambah_user"])) {
   $idcabang = $_POST["cabang"];
   $level = $_POST["level"];
 
-
-
   //id cabang
   $idUser  = KodeOtomatis($db, 'tb_user', 'id_user', '', '', '');
 
@@ -170,7 +161,6 @@ if (isset($_POST["tambah_user"])) {
     header('Location: ../index.php?hal=gagal');
   }
 }
-
 
 
 if (isset($_POST['edit_bagian'])) {
@@ -281,7 +271,38 @@ if (isset($_POST['edit_user'])) {
     }
 }
 
+if (isset($_POST['edit_cabang'])){
+  // var_dump($_POST);
+  $id = $_POST['id_cabang'];
+  $sql = "SELECT * FROM tb_cabang WHERE id_cabang = '$id";
+  $que = mysqli_query($db, $sql);
+  $place = mysqli_fetch_assoc($que);
 
+  $nama = (empty($_POST['nama_cabang'])) ? $place['nm_cabang']: $_POST['nama_cabang'];
+
+  $sql = "UPDATE tb_cabang SET nm_cabang='$nama' WHERE id_cabang='$id'";
+  $query = mysqli_query($db, $sql);
+
+  if( $query ){
+        header('Location: ../pages/pusat/index.php?hal=data_cabang');
+    } else {
+        echo '<script>alert("User Gagal Disimpan !!");</script>';
+    }
+}
+
+if (isset($_GET["approval"])){
+  $approval = $_GET["approval"];
+  $id = $_GET['id'];
+
+  $sql = "UPDATE tb_transrab SET approval='$approval' WHERE id_transrab='$id'";
+  $query = mysqli_query($db, $sql);
+
+  if( $query ){
+        header('Location: ../pages/pusat/index.php?hal=data_rab');
+    } else {
+        echo '<script>alert("User Gagal Disimpan !!");</script>';
+    }
+}
 
 
 if (isset($_GET["hapus"])){
@@ -312,6 +333,20 @@ if (isset($_GET["hapus"])){
       // apakah query hapus berhasil?
       if( $query ){
           header('Location: ../pages/pusat/index.php?hal=data_bagian');
+      } else {
+          die("gagal menghapus!!.");
+      }
+  }
+  if ($hapus == "cabang") {
+      $id = $_GET["id"];
+
+      // buat query hapus
+      $sql = "UPDATE tb_cabang SET status_aktif='0' WHERE id_cabang=$id";
+      $query = mysqli_query($db, $sql);
+      
+      // apakah query hapus berhasil?
+      if( $query ){
+          header('Location: ../pages/pusat/index.php?hal=data_cabang');
       } else {
           die("gagal menghapus!!.");
       }
@@ -621,26 +656,35 @@ function KodeOtomatis($conn, $tabel, $id, $inisial, $index, $panjang)
   if($index=='' && $panjang=='')
   {
     $no_urut	= (int) $id_max;
-  }else if($index!='' && $panjang==''){
-    $no_urut    = (int) substr($id_max, $index);
-  }else{
+  }
+  else if($index!='' && $panjang=='')
+  {
+    $no_urut = (int) substr($id_max, $index);
+  }
+  else
+  {
     $no_urut	= (int) substr($id_max, $index, $panjang);
   }
   $no_urut	= $no_urut + 1;
+  
   if($index=='' && $panjang=='')
   {
 	  $id_baru  = $no_urut;
-  }else if($index!='' && $panjang==''){
+  }
+  else if($index!='' && $panjang=='')
+  {
 	  $id_baru  = $inisial . $no_urut;
-  }else{
+  }
+  else
+  {
 	  $id_baru	= $inisial . sprintf("%0$panjang"."s", $no_urut);
   }
   return $id_baru;
 }
 
-//pisahan
-function Pisahan(){
+// //pisahan
+// function Pisahan(){
   
 
-  return $endBagian;
-}
+//   return $endBagian;
+// }
