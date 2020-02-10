@@ -3,7 +3,37 @@
         session_start();
     }
 
+
+
 require_once '../../command/connection.php';
+
+if(isset($_GET['cmd'])) {
+    if($_GET['cmd'] == 'dataTransarb') {
+        $years = isset($_GET['years']) ? $_GET['years'] : "";
+        $month = isset($_GET['month']) ? $_GET['month'] : "";
+
+        $where = "";
+
+        if($years != "") {
+            $where = $years . "-%";
+        }
+
+        if($month != "") {
+            $where = $where == "" ? "%-".$month."-%" : $years . "-" . $month . "-%";
+        }
+
+        $sql="SELECT * FROM tb_transrab t JOIN tb_anggaran ta ON ta.id_anggaran = t.id_anggaran JOIN tb_subbagian sub ON sub.id_subbagian = sub.id_subbagian WHERE tanggal LIKE '$where' GROUP BY id_transrab";
+        $query = mysqli_query($db, $sql);
+        $data = [];
+
+        while($res=mysqli_fetch_assoc($query)) {
+            $data[] = $res;
+        }
+
+        echo json_encode($data);
+        exit;
+    }
+}
 
 if (isset($_SESSION["pusat"])) {
   $hal = @$_GET['hal'];
