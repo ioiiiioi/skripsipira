@@ -54,8 +54,8 @@
 					<div class="col-lg-12">
 						<div class="card">
 							<div class="card-header">
-								<h3 class="text-center font-weight-bold text-primary">KUSUMA</h3>
-								<h3 class="text-center font-weight-bold text-primary">MAHARDIKA</h3>	
+								<h3 class="text-center font-weight-bold text-primary">SEKOLAHNYA</h3>
+								<h3 class="text-center font-weight-bold text-primary">PAK AWANG</h3>	
 							</div>
 							<div class="card-body p-5">
 								<p class="font-weight-bold">Silahkan masukkan Username Dan Password</p>

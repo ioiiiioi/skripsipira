@@ -11,6 +11,15 @@
                                 <select class="col-md-2 form-control float-right" onchange="transactionFiltering()" id="years">
                                     <option selected='selected' hidden='true' value="">Pilih Tahun</option>
                                     <option value="2020">2020</option>
+                                    <?php 
+                                    $tahunini = date("Y");
+                                    for ($x=0; $x<6; $x++){
+                                        $tahunini = $tahunini - 1;
+                                        ?>
+                                    <option value="<?php echo $tahunini; ?>"><?php echo $tahunini; ?></option>
+                                     <?php 
+                                        }
+                                    ?>
                                 </select>
                                 
                                 <select class="col-md-2 form-control float-right" id="month" onchange="transactionFiltering()">

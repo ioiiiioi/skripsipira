@@ -549,7 +549,7 @@ if (isset($_POST["transaksi_rab"])) {
   $tgl = date('Y-m-d');
 
 
-  $sql_tambah = "INSERT INTO tb_transrab VALUES ('', '$idAnggaran', '$idSubbagian', '$idUser', '$idTa', '$keterangan', '$tgl', '$nominal')";
+  $sql_tambah = "INSERT INTO tb_transrab VALUES ('', '$idAnggaran', '$idSubbagian', '$idUser', '$idTa', '$keterangan', '$tgl', '$nominal','')";
   $query = mysqli_query($db, $sql_tambah);
 
   if ($query) {
