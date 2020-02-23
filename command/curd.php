@@ -532,7 +532,24 @@ if (isset($_POST["tambah_mahasiswa"])) {
   }
 }
 
+if (isset($_POST['input_registrasi'])){
+  $mhs = $_POST['mhs'];
+  $prodi = $_POST['prodi'];
+  $tanggal = $_POST['tanggal'];
+  $nominal = $_POST['nominal'];
+  $jtans = $_POST['jtans'];
+  $id_user = $_POST['user'];
+  $ta = $_POST['ta'];
 
+  $sql_tambah = "INSERT INTO tb_preg VALUES ('', '$mhs', '$id_user', '$ta', '$tanggal', '$nominal','$prodi','$jtans')";
+  $query = mysqli_query($db, $sql_tambah);
+
+  if ($query) {
+    header('Location: ../pages/cabang/index.php?hal=tabel_pembayaran_registrasi');
+  } else {
+    header('Location: ../index.php?hal=gagal');
+  }
+}
 
 if (isset($_POST["transaksi_rab"])) {
 

@@ -62,7 +62,7 @@ if (isset($_SESSION["cabang"])) {
                         <ul class="sub-menu children dropdown-menu">                            
                             <li><i class="fa fa-bars"></i><a href="?hal=data_prodi">Data Prodi</a></li>
                             <li><i class="fa fa-bars"></i><a href="?hal=data_tahun_akademik">Data Tahun Akademik</a></li>
-                            <li><i class="fa fa-bars"></i><a href="?hal=data_jenis_pembayaran">Data Jenis Pembayaran</a></li>
+<!--                             <li><i class="fa fa-bars"></i><a href="?hal=data_jenis_pembayaran">Data Jenis Pembayaran</a></li> -->
                             <li><i class="fa fa-bars"></i><a href="?hal=data_mahasiswa">Data Mahasiswa</a></li>
                         </ul>
                     </li>
@@ -75,7 +75,7 @@ if (isset($_SESSION["cabang"])) {
                             <a href="?hal=transaksi_rab"><i class="menu-icon fa fa-credit-card"></i>Transaksi</a>
                         </li>
                         <li>
-                            <a href="?hal=pembayaran_registrasi"><i class="menu-icon fa fa-money"></i>Pembayaran Registrasi</a>
+                            <a href="?hal=tabel_pembayaran_registrasi"><i class="menu-icon fa fa-money"></i>Pembayaran Registrasi</a>
                         </li>
                         <li>
                             <a href="?hal=pengajuan_rab"><i class="menu-icon fa fa-dashboard"></i>Pengajuan RAB</a>
