@@ -28,8 +28,8 @@ if (!isset($_SESSION)) {
 										<div class="form-group">
 											<div>
 												<label>Sub-Bagian</label>
-												<select name="sub" id="sub" class="form-control select2" style="width: 100%;">
-													<option selected="selected">Pilih Sub-Bagian</option>
+												<select name="sub" required onchange="cekSub()" id="subID" class="form-control" style="width: 100%;">
+													<option selected="selected" value="" hidden="true">Pilih Sub-Bagian</option>
 														<?php
 															// $no=1;
 															$query="SELECT * FROM tb_subbagian";
@@ -49,27 +49,16 @@ if (!isset($_SESSION)) {
 											<br>
 											<div>
 												<label>Anggaran</label>
-												<select name="anggaran" id="anggaran" class="form-control select2" style="width: 100%;">
-													<option value="">Pilih Anggaran</option>
-													<?php
-														$query="SELECT * FROM tb_anggaran";
-														$result=$db->query($query);
-														$num_result=$result->num_rows;
-														if ($num_result > 0 ) { 
-																while ($data=mysqli_fetch_assoc($result)) {
-																extract($data);
-														?>
-														<option value="<?php echo $id_anggaran; ?>">
-															<?php echo $nm_anggaran; ?>
-														</option>
-														<?php }} ?>
+												<select name="anggaran" required id="anggaran" class="form-control" style="width: 100%;">
+													<option value="" selected="selected" hidden="true">Pilih Anggaran</option>
+													
 												</select>
 											</div>
 
 											<br>
 											<div>
 												<label>Tahun Akademik</label>
-												<select class="form-control select2" name="tahun_akademik">
+												<select class="form-control" name="tahun_akademik" required>
 													<option>Pilih</option>
 													<?php
 													// $no=1;
@@ -90,13 +79,13 @@ if (!isset($_SESSION)) {
 											<br>
 											<div>
 												<label>Keterangan</label>
-												<input type="text" name="keterangan" class="form-control">
+												<input type="text" name="keterangan" required class="form-control">
 											</div>
 												
 											<br>
 											<div>
 												<label>Nominal</label>
-												<input type="text" name="nominal" class="form-control">
+												<input type="text" name="nominal" required class="form-control">
 											</div>
 
 											<br>
@@ -118,23 +107,35 @@ if (!isset($_SESSION)) {
 </body>
 
 <script type="text/javascript">
-$(document).ready(function(){
-	$('#sub').on('change',function(){
-		var subId = $(this).val();
-		if(subId){
-			$.ajax({
-				type:'POST',
-				url:'ajax_sub.php',
-				data:'sub_id='+subId,
-				success:function(html){
-					$('#anggaran').html(html); 
-				}
-			}); 
-		}else{
-				$('#anggaran').html('<option value="">Pilih Subbgian</option>');
-		}
-	});
-});
+	function cekSub(){
+		var subId = $('#subID').val();
+			console.log(subId);
+		$.ajax({
+			type:'POST',
+			url:'ajax_sub.php',
+			data:'sub_id='+subId,
+			success:function(hasil){
+				// console.log(hasil);
+				$('#anggaran').html(hasil); 
+			}
+		});
+		
+		// if(subId != ""){
+		// 	$.ajax({
+		// 		htmls = ""
+		// 		type:'POST',
+		// 		url:'ajax_sub.php',
+		// 		data:'sub_id='+subId,
+		// 		success:function(hasil){
+		// 			console.log(hasil);
+		// 			// $('#anggaran').html(hasil); 
+		// 		}
+		// 	}); 
+		// }else{
+		// 		$('#anggaran').html('<option value="" selected="selected" hidden="true">Pilih Subbgian terlebih dahulu</option>');
+		// }
+	}
+
 </script>
 <?php
 	}else{

@@ -24,7 +24,7 @@ if (!isset($_SESSION)) {
                             <div>
                                 <div class="form-group">
                                     <label>Id Mahasiswa</label>
-                                    <select name="mhs" class="form-control">
+                                    <select name="mhs" class="form-control" required>
                                         <option selected="selected" hidden="true"> Pilih Mahasiswa</option>
                                         <?php
                                         $query="SELECT * FROM tb_mahasiswa";
@@ -44,7 +44,7 @@ if (!isset($_SESSION)) {
                                 <br>
                                 <div>
                                     <label>Prodi</label>
-                                    <select name="prodi" class="form-control select2" style="width: 100%;">
+                                    <select name="prodi" class="form-control select2" style="width: 100%;"required>
                                         <option selected="selected" hidden="true"> Pilih Prodi</option>
                                         <?php
                                         $query="SELECT * FROM tb_prodi";
@@ -63,7 +63,7 @@ if (!isset($_SESSION)) {
                                 <br>
                                 <div>
                                     <label>Tahun Akademik</label>
-                                    <select name="ta" class="form-control select2" style="width: 100%;">
+                                    <select name="ta" class="form-control select2" style="width: 100%;" required>
                                         <option selected="selected" hidden="true">Pilih Tahun Akademik</option>
                                         <?php
                                         $query="SELECT * FROM tb_ta";
@@ -82,17 +82,17 @@ if (!isset($_SESSION)) {
                                 <br>
                                 <div>
                                     <label>Tanggal</label>
-                                    <input type="date" name="tanggal" class="form-control">
+                                    <input type="date" name="tanggal" class="form-control" required>
                                 </div>
                                 <br>
                                 <div>
                                     <label>Nominal</label>
-                                    <input type="text" name="nominal" class="form-control">
+                                    <input type="text" name="nominal" class="form-control" required>
                                 </div>
                                 <br>
                                 <div>
                                     <label>Jenis Transaksi </label>
-                                    <select class="form-control" name="jtans">
+                                    <select class="form-control" name="jtans" required>
                                         <option selected="selected" hidden="true">Pilih Jenis Transaksi</option>
                                         <option value="transfer">Transfer</option>
                                         <option value="cash">Cash</option>

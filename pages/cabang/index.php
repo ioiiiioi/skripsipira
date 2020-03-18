@@ -5,6 +5,47 @@
 
 require_once '../../command/connection.php';
 
+if(isset($_GET["filter_rab"]) && !empty($_GET["filter_rab"])) {
+    if($_GET['filter_rab'] == 'data_rab') {
+        $ta = isset($_GET['ta']) ? $_GET['ta'] : "";
+        $subbagian = isset($_GET['subbagian']) ? $_GET['subbagian'] : "";
+        $anggaran = isset($_GET['anggaran']) ? $_GET['anggaran'] : "";
+        
+        $sql = "SELECT * FROM tb_transrab WHERE ";
+
+        if ($ta != "") {
+           $sql .="id_ta = '$id_ta'";
+           if($subbagian != "") {
+                $sql .=" AND id_subbagian = '$id_subbagian'";
+            }
+            if($anggaran != "") {
+                $sql .=" AND id_anggaran = '$id_anggaran'";
+            }
+        }
+
+        elseif ($id_ta == 0) {
+            if($subbagian != "") {
+                $sql .="id_subbagian = '$id_subbagian'";
+            }
+            if($anggaran != "") {
+                $sql .=" AND id_anggaran = '$id_anggaran'";
+            }
+        }
+        
+        $query = mysqli_query($db, $sql);
+        $data = [];
+
+        while($res=mysqli_fetch_assoc($query)) {
+            $data[] = $res;
+        }
+        
+        echo json_encode($data);
+        exit;
+    }
+}
+
+
+
 if (isset($_SESSION["cabang"])) {
   $hal = @$_GET['hal'];
   $id = $_SESSION['cabang'];

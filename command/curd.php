@@ -532,6 +532,53 @@ if (isset($_POST["tambah_mahasiswa"])) {
   }
 }
 
+// if (isset($_POST["tambah_mahasiswa"])) {
+
+//   //ambil data
+//   $idProdi = $_POST['id_prodi'];
+//   $nama = $_POST['nama_mahasiswa'];
+//   $telp = $_POST['no_telp'];
+//   $email = $_POST['email'];
+//   $kelamin = $_POST['kelamin'];
+
+//   $query = mysqli_query($db, "SELECT id_mahasiswa FROM tb_mahasiswa WHERE id_prodi = '$idProdi'");
+//   $get = mysqli_fetch_array ($query);
+
+//     if (!isset($get)) {
+//       $end = "1";
+//       $idMahasiwa = ($idProdi  . $end);
+//       }
+//     else{
+//       $query = mysqli_query($db, "SELECT id_mahasiswa FROM tb_mahasiswa WHERE id_prodi = '$idProdi'");
+//       foreach ($query as $key => $value) {
+        
+//       }
+//         $end = end($value);
+//         $kodeOtomatis  = KodeOtomatis($db, 'tb_mahasiswa', $end, '', '', '');
+        
+//         // var_dump($kodeOtomatis);
+//         // die;
+
+//         $idMahasiwa = $kodeOtomatis;
+//       }
+
+//     // var_dump($idMahasiwa);
+//     // die;
+
+//   $sql_tambah = "INSERT INTO tb_mahasiswa VALUES ('$idMahasiwa', '$idProdi', '$nama', '$email', '$telp', '$kelamin','1')";
+//   $query = mysqli_query($db, $sql_tambah);
+
+//   if ($query) {
+//     header('Location: ../pages/cabang/index.php?hal=data_mahasiswa');
+//   } else {
+//     header('Location: ../index.php?hal=gagal');
+//   }
+// }
+//         $query_tb_rab = "INSERT INTO tb_rab (id, id_ta, id_subbagian, id_anggaran, nominal_anggaran, approval, status_aktif) VALUES ('', '$id_ta', '$id_subbagian', '$id', '$y','','')" ;
+
+//         mysqli_query($db, $query_tb_rab);
+
+
 if (isset($_POST['input_registrasi'])){
   $mhs = $_POST['mhs'];
   $prodi = $_POST['prodi'];
