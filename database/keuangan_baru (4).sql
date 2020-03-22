@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Feb 2020 pada 08.35
+-- Waktu pembuatan: 22 Mar 2020 pada 09.10
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.3.13
 
@@ -356,12 +356,21 @@ INSERT INTO `tb_mahasiswa` (`id_mahasiswa`, `id_prodi`, `nm_mahasiswa`, `email`,
 CREATE TABLE `tb_preg` (
   `id_preg` int(10) NOT NULL,
   `id_mahasiswa` int(10) NOT NULL,
-  `id_jbayar` int(10) NOT NULL,
   `id_user` int(3) NOT NULL,
   `id_ta` int(11) NOT NULL,
   `tanggal` date NOT NULL,
-  `nominal` int(10) NOT NULL
+  `nominal` int(10) NOT NULL,
+  `id_prodi` char(10) NOT NULL,
+  `j_transaksi` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tb_preg`
+--
+
+INSERT INTO `tb_preg` (`id_preg`, `id_mahasiswa`, `id_user`, `id_ta`, `tanggal`, `nominal`, `id_prodi`, `j_transaksi`) VALUES
+(1, 100011, 3, 1, '2020-02-12', 900000, '10002', 'Cash'),
+(2, 2020100031, 3, 2, '2020-02-12', 90000, '10002', '');
 
 -- --------------------------------------------------------
 
@@ -389,7 +398,24 @@ INSERT INTO `tb_prodi` (`id_prodi`, `nm_prodi`, `jenjang`, `semester`, `ketua`, 
 ('10003', 'Manajemen Transportasi Udara', 'S1', '1', 'Pacman Purwanto', 'QWERTY3456', 1),
 ('10004', 'pemantau udara', 'D3', '1', 'bapak naga', 'QWERTY9786', 1),
 ('10005', 'mba lucu', 'S1', '1', 'zeus', 'QWERTY0937', 1),
-('10006', 'FIeld Crew', 'S1', '2', 'Sunatyo', 'QWERTY2323', 1);
+('10006', 'FIeld Crew', 'S1', '2', 'Sunatyo', 'QWERTY2323', 1),
+('10007', 'Angkut Barang', 'D3', '3', 'soto ayam', '123123sdas', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_rab`
+--
+
+CREATE TABLE `tb_rab` (
+  `id` int(11) NOT NULL,
+  `id_ta` int(11) NOT NULL,
+  `id_subbagian` int(10) NOT NULL,
+  `id_anggaran` int(10) NOT NULL,
+  `nominal_anggaran` bigint(20) NOT NULL,
+  `approval` tinyint(1) NOT NULL DEFAULT 0,
+  `status_aktif` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -482,13 +508,15 @@ CREATE TABLE `tb_transrab` (
 --
 
 INSERT INTO `tb_transrab` (`id_transrab`, `id_anggaran`, `id_subbagian`, `id_user`, `id_ta`, `keterangan`, `tanggal`, `nominal`, `approval`) VALUES
-(4, 411, 41, 3, 4, 'asdsadsadsa', '2020-01-26', 900000, 1),
-(5, 111, 11, 3, 4, '', '2020-01-26', 300000, 2),
-(6, 112, 21, 3, 3, 'yuioph', '2020-01-26', 500000, 1),
+(4, 411, 41, 3, 4, 'asdsadsadsa', '2020-04-26', 900000, 1),
+(5, 111, 11, 3, 4, 'ygyygyg', '2020-03-26', 300000, 2),
+(6, 112, 21, 3, 3, 'yuioph', '2020-02-26', 500000, 1),
 (7, 411, 22, 3, 3, 'qazxwswed', '2020-01-26', 150000, 1),
 (8, 113, 32, 3, 3, 'tyuiop', '2019-01-26', 200000, 2),
 (9, 112, 11, 3, 2, 'asdasdad', '2020-02-16', 2222222, 0),
-(10, 113, 21, 3, 3, 'asdads', '2020-02-16', 11111, 0);
+(10, 113, 21, 3, 3, 'asdads', '2020-02-16', 11111, 0),
+(11, 516, 53, 3, 1, 'asdasdq', '2020-02-28', 3333, 0),
+(13, 455, 14, 3, 1, 'dwdw', '2020-02-28', 222, 0);
 
 -- --------------------------------------------------------
 
@@ -588,15 +616,24 @@ ALTER TABLE `tb_mahasiswa`
 ALTER TABLE `tb_preg`
   ADD PRIMARY KEY (`id_preg`),
   ADD KEY `id_mahasiswa` (`id_mahasiswa`),
-  ADD KEY `id_jbayar` (`id_jbayar`),
   ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_ta` (`id_ta`);
+  ADD KEY `id_ta` (`id_ta`),
+  ADD KEY `id_prodi` (`id_prodi`);
 
 --
 -- Indeks untuk tabel `tb_prodi`
 --
 ALTER TABLE `tb_prodi`
   ADD PRIMARY KEY (`id_prodi`);
+
+--
+-- Indeks untuk tabel `tb_rab`
+--
+ALTER TABLE `tb_rab`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_subbagian` (`id_subbagian`),
+  ADD KEY `id_anggaran` (`id_anggaran`),
+  ADD KEY `id_ta` (`id_ta`);
 
 --
 -- Indeks untuk tabel `tb_subbagian`
@@ -678,7 +715,13 @@ ALTER TABLE `tb_mahasiswa`
 -- AUTO_INCREMENT untuk tabel `tb_preg`
 --
 ALTER TABLE `tb_preg`
-  MODIFY `id_preg` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_preg` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_rab`
+--
+ALTER TABLE `tb_rab`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_subbagian`
@@ -696,7 +739,7 @@ ALTER TABLE `tb_ta`
 -- AUTO_INCREMENT untuk tabel `tb_transrab`
 --
 ALTER TABLE `tb_transrab`
-  MODIFY `id_transrab` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_transrab` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_user`
@@ -753,9 +796,17 @@ ALTER TABLE `tb_mahasiswa`
 --
 ALTER TABLE `tb_preg`
   ADD CONSTRAINT `tb_preg_ibfk_1` FOREIGN KEY (`id_mahasiswa`) REFERENCES `tb_mahasiswa` (`id_mahasiswa`),
-  ADD CONSTRAINT `tb_preg_ibfk_2` FOREIGN KEY (`id_jbayar`) REFERENCES `tb_jbayar` (`id_jbayar`),
   ADD CONSTRAINT `tb_preg_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id_user`),
-  ADD CONSTRAINT `tb_preg_ibfk_4` FOREIGN KEY (`id_ta`) REFERENCES `tb_ta` (`id_ta`);
+  ADD CONSTRAINT `tb_preg_ibfk_4` FOREIGN KEY (`id_ta`) REFERENCES `tb_ta` (`id_ta`),
+  ADD CONSTRAINT `tb_preg_ibfk_5` FOREIGN KEY (`id_prodi`) REFERENCES `tb_prodi` (`id_prodi`);
+
+--
+-- Ketidakleluasaan untuk tabel `tb_rab`
+--
+ALTER TABLE `tb_rab`
+  ADD CONSTRAINT `tb_rab_ibfk_1` FOREIGN KEY (`id_subbagian`) REFERENCES `tb_subbagian` (`id_subbagian`),
+  ADD CONSTRAINT `tb_rab_ibfk_2` FOREIGN KEY (`id_anggaran`) REFERENCES `tb_anggaran` (`id_anggaran`),
+  ADD CONSTRAINT `tb_rab_ibfk_4` FOREIGN KEY (`id_ta`) REFERENCES `tb_ta` (`id_ta`);
 
 --
 -- Ketidakleluasaan untuk tabel `tb_subbagian`
