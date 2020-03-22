@@ -1,63 +1,64 @@
-<?php 
-	if (!isset($_SESSION)) {
-        session_start();
-    }
+<?php
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 require_once '../../command/connection.php';
 
-if(isset($_GET["filter_rab"]) && !empty($_GET["filter_rab"])) {
-    if($_GET['filter_rab'] == 'data_rab') {
+if (isset($_GET["filter_rab"]) && !empty($_GET["filter_rab"])) {
+    if ($_GET['filter_rab'] == 'data_rab') {
         $ta = isset($_GET['ta']) ? $_GET['ta'] : "";
         $subbagian = isset($_GET['subbagian']) ? $_GET['subbagian'] : "";
         $anggaran = isset($_GET['anggaran']) ? $_GET['anggaran'] : "";
-        
-        $sql = "SELECT * FROM tb_transrab WHERE ";
+
+        $where = "";
 
         if ($ta != "") {
-           $sql .="id_ta = '$id_ta'";
-           if($subbagian != "") {
-                $sql .=" AND id_subbagian = '$id_subbagian'";
-            }
-            if($anggaran != "") {
-                $sql .=" AND id_anggaran = '$id_anggaran'";
-            }
+            $where .= "tt.id_ta = '$ta'";
         }
 
-        elseif ($id_ta == 0) {
-            if($subbagian != "") {
-                $sql .="id_subbagian = '$id_subbagian'";
+        if ($subbagian != "") {
+            $operator = "";
+            if ($where != "") {
+                $operator = "AND";
             }
-            if($anggaran != "") {
-                $sql .=" AND id_anggaran = '$id_anggaran'";
-            }
+            $where .= " $operator tt.id_subbagian = '$subbagian'";
         }
-        
+
+        if ($anggaran != "") {
+            $operator = "";
+            if ($where != "") {
+                $operator = "AND";
+            }
+            $where .= " $operator tt.id_anggaran = '$anggaran'";
+        }
+
+        $sql = "SELECT * FROM tb_transrab tt LEFT JOIN tb_subbagian ts ON tt.id_subbagian = ts.id_subbagian LEFT JOIN tb_ta tta ON tta.id_ta = tt.id_ta LEFT JOIN tb_anggaran ta ON tt.id_anggaran = ta.id_anggaran WHERE $where";
+
         $query = mysqli_query($db, $sql);
         $data = [];
 
-        while($res=mysqli_fetch_assoc($query)) {
+        while ($res = mysqli_fetch_assoc($query)) {
             $data[] = $res;
         }
-        
+
         echo json_encode($data);
         exit;
     }
 }
 
-
-
 if (isset($_SESSION["cabang"])) {
-  $hal = @$_GET['hal'];
-  $id = $_SESSION['cabang'];
+    $hal = @$_GET['hal'];
+    $id = $_SESSION['cabang'];
 
-  $query = mysqli_query($db, "SELECT * FROM tb_user WHERE id_user = '$id'");
-  $extract = mysqli_fetch_assoc($query);
+    $query = mysqli_query($db, "SELECT * FROM tb_user WHERE id_user = '$id'");
+    $extract = mysqli_fetch_assoc($query);
 
-  extract($extract);
+    extract($extract);
 
-  echo $id;
+    echo $id;
 
- ?>
+    ?>
 
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -100,7 +101,7 @@ if (isset($_SESSION["cabang"])) {
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Olah Data</a>
-                        <ul class="sub-menu children dropdown-menu">                            
+                        <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-bars"></i><a href="?hal=data_prodi">Data Prodi</a></li>
                             <li><i class="fa fa-bars"></i><a href="?hal=data_tahun_akademik">Data Tahun Akademik</a></li>
 <!--                             <li><i class="fa fa-bars"></i><a href="?hal=data_jenis_pembayaran">Data Jenis Pembayaran</a></li> -->
@@ -145,7 +146,7 @@ if (isset($_SESSION["cabang"])) {
             <div class="top-right">
                 <div class="header-menu">
                     <div class="header-left">
-                        
+
                     </div>
 
                     <div class="user-area dropdown float-right">
@@ -165,29 +166,29 @@ if (isset($_SESSION["cabang"])) {
         <!-- Header-->
 
         		<?php
-                $hal = @$_GET['hal'];
-                $modul = "";
-                $default = $modul."dashboard.php";
-                if(!$hal){
+$hal = @$_GET['hal'];
+    $modul = "";
+    $default = $modul . "dashboard.php";
+    if (!$hal) {
+        require_once "$default";
+    } else {
+        switch ($hal) {
+            case $hal:
+                if (is_file($modul . $hal . ".php")) {
+                    require_once $modul . $hal . ".php";
+                } else {
                     require_once "$default";
-                }else{
-                    switch($hal){
-                        case $hal:
-                        if(is_file($modul.$hal.".php")){
-                            require_once $modul.$hal.".php";
-                        }else{
-                            require_once "$default";
-                        }
-                        break;
-                        default:
-                        require_once "$default";
-                    }
                 }
+                break;
+            default:
+                require_once "$default";
+        }
+    }
 
-                ?>
+    ?>
 
     </div><!-- /#right-panel -->
-        
+
 
 
         <div class="clearfix"></div>
@@ -274,7 +275,7 @@ if (isset($_SESSION["cabang"])) {
     </style>
 
 <?php
-}else{
+} else {
     echo "<script>window.location='../../login.php';</script>";
 }
 ?>

@@ -25,7 +25,7 @@
                                       <?php }} ?>
                                 </select>
 
-                                <select class="col-md-2 form-control float-right" id="filter_anggaran"  required>
+                                <select class="col-md-2 form-control float-right" id="filter_anggaran" onchange="RABFiltering()"  required>
                                     <option selected='selected' hidden='true' value="">Pilih Anggaran</option>
                                     <?php
                                     $nm_angg = mysqli_query($db, "SELECT * FROM tb_anggaran");
@@ -38,7 +38,7 @@
                                       <?php }} ?>
                                 </select>
 
-                                <select class="col-md-2 form-control float-right" id="filter_ta" required>
+                                <select class="col-md-2 form-control float-right" id="filter_ta" onchange="RABFiltering()" required>
                                     <option selected='selected' hidden='true' value="">Pilih Tahun Ajaran</option>
                                     <?php
                                     $nm_angg = mysqli_query($db, "SELECT * FROM tb_ta");
@@ -136,15 +136,16 @@
                     html += "<tr>"
                       html += "<td>"+no+"</td>"
                       html += "<td>"+val.tanggal+"</td>"
-                      html += "<td>"+val.id_subbagian+"</td>"
-                      html += "<td>"+val.id_ta+"</td>"
-                      html += "<td>"+val.id_anggaran+"</td>"
+                      html += "<td>"+val.nm_subbagian+"</td>"
+                      html += "<td>"+val.tahun+"</td>"
+                      html += "<td>"+val.nm_anggaran+"</td>"
+                      html += "<td>"+val.keterangan+"</td>"
                       html += "<td>"+val.nominal+"</td>"
                     html += "</tr>"
                 })
 
                 if(resp.length == 0) {
-                    $('#data_rab').html("<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>")
+                    $('#data_rab').html("<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>")
                 } else {
                     $('#data_rab').html(html)
                 }
