@@ -14,6 +14,7 @@
                                 <div class="col">
                                 <select class="col-md-2 form-control float-right" onchange="RABFiltering()" id="filter_subbagian" required>
                                     <option selected='selected' hidden='true' value="">Pilih Subbagian</option>
+                                    <option value="">Semua</option>
                                     <?php
                                     $nm_angg = mysqli_query($db, "SELECT * FROM tb_subbagian");
                                     if ($nm_angg) {
@@ -27,6 +28,7 @@
 
                                 <select class="col-md-2 form-control float-right" id="filter_anggaran" onchange="RABFiltering()"  required>
                                     <option selected='selected' hidden='true' value="">Pilih Anggaran</option>
+                                    <option value="">Semua</option>
                                     <?php
                                     $nm_angg = mysqli_query($db, "SELECT * FROM tb_anggaran");
                                     if ($nm_angg) {
@@ -40,6 +42,7 @@
 
                                 <select class="col-md-2 form-control float-right" id="filter_ta" onchange="RABFiltering()" required>
                                     <option selected='selected' hidden='true' value="">Pilih Tahun Ajaran</option>
+                                    <option value="">Semua</option>
                                     <?php
                                     $nm_angg = mysqli_query($db, "SELECT * FROM tb_ta");
                                     if ($nm_angg) {
