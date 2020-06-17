@@ -67,6 +67,7 @@
                                             <th>Anggaran</th>
                                             <th>Keterangan</th>
                                             <th>Nominal</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody id="data_rab">
@@ -108,6 +109,18 @@
                                             ?></td>
                                             <td><?php echo $keterangan; ?></td>
                                             <td><?php echo number_format($nominal); ?></td>
+                                            <td><?php
+                                            if ($approval == 0){
+                                              echo "Diajukan";
+                                            }
+                                            elseif($approval == 1){
+                                              echo"Diterima";
+                                            }
+                                            else{
+                                              echo"Ditolak";
+                                            }
+
+                                            ?></td>
                                         </tr>
                                         <?php }} echo "Total : ",number_format(array_sum($nom_array)); ?>
                                     </tbody>
@@ -144,6 +157,15 @@
                       html += "<td>"+val.nm_anggaran+"</td>"
                       html += "<td>"+val.keterangan+"</td>"
                       html += "<td>"+val.nominal+"</td>"
+                      if (parseInt(val.approval) == 0){
+                        html += "<td>Diajukan</td>"
+                      }
+                      else if(parseInt(val.approval) == 1){
+                        html += "<td>Diterima</td>"
+                      }
+                      else{
+                        html += "<td>Ditolak</td>"
+                      }
                     html += "</tr>"
                 })
 
