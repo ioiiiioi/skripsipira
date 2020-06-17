@@ -15,9 +15,11 @@ if (isset($_POST["tambah_cabang"])) {
 
   //id cabang
   $idCabang  = KodeOtomatis($db, 'tb_cabang', 'id_cabang', '', '', '');
+  // var_dump($nama);
+  // var_dump($idCabang);
 
-  //query
-  $sql_tambah = "INSERT INTO tb_cabang VALUES ('$idCabang', '$nama')";
+  // query
+  $sql_tambah = "INSERT INTO tb_cabang VALUES ('$idCabang', '$nama','1')";
   $query = mysqli_query($db, $sql_tambah);
 
   if ($query) {
