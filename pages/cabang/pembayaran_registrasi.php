@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 if (!isset($_SESSION)) {
                 session_start();
@@ -24,13 +24,13 @@ if (!isset($_SESSION)) {
                             <div>
                                 <div class="form-group">
                                     <label>Id Mahasiswa</label>
-                                    <select name="mhs" class="form-control" required>
+                                    <select name="mhs" id="mhs" class="form-control" required>
                                         <option selected="selected" hidden="true"> Pilih Mahasiswa</option>
                                         <?php
                                         $query="SELECT * FROM tb_mahasiswa";
                                         $result=$db->query($query);
                                         $num_result=$result->num_rows;
-                                        if ($num_result > 0 ) { 
+                                        if ($num_result > 0 ) {
                                                 while ($data=mysqli_fetch_assoc($result)) {
                                                 extract($data);
                                         ?>
@@ -44,21 +44,8 @@ if (!isset($_SESSION)) {
                                 <br>
                                 <div>
                                     <label>Prodi</label>
-                                    <select name="prodi" class="form-control select2" style="width: 100%;"required>
-                                        <option selected="selected" hidden="true"> Pilih Prodi</option>
-                                        <?php
-                                        $query="SELECT * FROM tb_prodi";
-                                        $result=$db->query($query);
-                                        $num_result=$result->num_rows;
-                                        if ($num_result > 0 ) { 
-                                                while ($data=mysqli_fetch_assoc($result)) {
-                                                extract($data);
-                                        ?>
-                                        <option value="<?php echo $id_prodi; ?>">
-                                                <?php echo $nm_prodi; ?>
-                                        </option>
-                                    <?php }} ?>
-                                    </select>
+                                    <input type="hidden" name="id_prodi" id="id_prodi" class="form-control" required>
+                                    <input type="text" name="nm_prodi" id="nm_prodi" class="form-control" required>
                                 </div>
                                 <br>
                                 <div>
@@ -69,7 +56,7 @@ if (!isset($_SESSION)) {
                                         $query="SELECT * FROM tb_ta";
                                         $result=$db->query($query);
                                         $num_result=$result->num_rows;
-                                        if ($num_result > 0 ) { 
+                                        if ($num_result > 0 ) {
                                                 while ($data=mysqli_fetch_assoc($result)) {
                                                 extract($data);
                                         ?>
@@ -112,9 +99,35 @@ if (!isset($_SESSION)) {
             </div>
         </div>
     </div>
+  </div>
     <div class="clearfix"></div>
     <?php
     }else{
         echo "<script>window.location='../../login.php';</script>";
     }
 ?>
+        <script type="text/javascript">
+		$(function() {
+			$("#mhs").change(function(){
+				var mhs = $("#mhs").val();
+
+				$.ajax({
+					url: 'proses-ajax.php',
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						'mhs': mhs
+					},
+					success: function (siswa) {
+						$("#id_prodi").val(siswa['id_prodi']);
+						$("#nm_prodi").val(siswa['nm_prodi']);
+
+					}
+				});
+			});
+
+			$("form").submit(function(){
+				alert("Keep learning");
+			});
+		});
+	</script>

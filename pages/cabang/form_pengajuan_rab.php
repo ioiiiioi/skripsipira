@@ -40,7 +40,7 @@
         </section>
     </div>
 
-    <!-- 
+    <!--
 <script type="text/javascript">
     function transactionFiltering() {
         var month = $('#month').val()
@@ -72,7 +72,7 @@
                             html += "<td>Diterima</td>"
                         } else {
                             html += "<td>Ditolak</td>"
-                        } 
+                        }
                     html += "</tr>"
                 })
 

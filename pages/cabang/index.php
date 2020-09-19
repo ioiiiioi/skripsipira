@@ -78,12 +78,14 @@ if (isset($_SESSION["cabang"])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="../../assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/lib/datatable/dataTables.bootstrap.min.css">
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
     <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
 
 </head>
@@ -146,12 +148,16 @@ if (isset($_SESSION["cabang"])) {
             <div class="top-right">
                 <div class="header-menu">
                     <div class="header-left">
-
+                      <ul class="nav navbar-nav navbar-right">
+                         <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-pill label-danger count" style="border-radius:10px;"></span> <i class="fa fa-bell"></i><span class="glyphicon glyphicon-bell" style="font-size:18px;"></span></a>
+                          <ul class="dropdown-menu"></ul>
+                         </li>
+                        </ul>
                     </div>
 
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="../../images/pira.jpg" alt="">
                             Admin
                         </a>
                     </div>
@@ -233,6 +239,40 @@ $hal = @$_GET['hal'];
     <script src="../../assets/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="../../assets/js/init/datatables-init.js"></script>
 </body>
+
+<script type="text/javascript">
+$(document).ready(function(){
+// updating the view with notifications using ajax
+function load_notification(view = '')
+{
+$.ajax({
+url:"fetch.php",
+method:"POST",
+data:{view:view},
+dataType:"json",
+success:function(data)
+{
+$('.dropdown-menu').html(data.notification);
+if(data.unseen_notification > 0)
+{
+$('.count').html(data.unseen_notification);
+}
+}
+});
+}
+
+load_notification();
+// submit form and get new records
+// load new notifications
+$(document).on('click', '.dropdown-toggle', function(){
+$('.count').html('');
+load_notification('yes');
+});
+setInterval(function(){
+load_notification();
+}, 5000);
+});
+</script>
 </html>
 
    <style>

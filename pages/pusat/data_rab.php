@@ -8,35 +8,7 @@
                             <div class="card-header">
                                 <div class="col">
                                 <strong class="col-md-5 card-title ">Data RAB</strong>
-                                <select class="col-md-2 form-control float-right" onchange="transactionFiltering()" id="years">
-                                    <option selected='selected' hidden='true' value="">Pilih Tahun</option>
-                                    <option value="2020">2020</option>
-                                    <?php 
-                                    $tahunini = date("Y");
-                                    for ($x=0; $x<6; $x++){
-                                        $tahunini = $tahunini - 1;
-                                        ?>
-                                    <option value="<?php echo $tahunini; ?>"><?php echo $tahunini; ?></option>
-                                     <?php 
-                                        }
-                                    ?>
-                                </select>
-                                
-                                <select class="col-md-2 form-control float-right" id="month" onchange="transactionFiltering()">
-                                    <option selected='selected' hidden='true' value="">Pilih Bulan</option>
-                                    <option value="01">Januari</option>
-                                    <option value="02">Februari</option>
-                                    <option value="03">Maret</option>
-                                    <option value="04">April</option>
-                                    <option value="05">Mei</option>
-                                    <option value="06">Juni</option>
-                                    <option value="07">Juli</option>
-                                    <option value="08">Agustus</option>
-                                    <option value="09">September</option>
-                                    <option value="10">Oktober</option>
-                                    <option value="11">November</option>
-                                    <option value="12">Desember</option>
-                                </select>
+
                                 </div>
                             </div>
                             <div class="card-body">
@@ -45,7 +17,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Tanggal</th>
-                                            <th>Kategori</th>
+                                            <th>Anggaran</th>
                                             <th>Cabang</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -54,10 +26,10 @@
                                         <?php
                                             // $query="SELECT tb_anggaran.nm_anggaran, tb_subbagian.nm_bagian, tb_transrab.id_transrab FROM tb_transrab JOIN " ;
 
-                                            $query="SELECT * FROM tb_transrab";
+                                            $query="SELECT * FROM tb_transrab join tb_anggaran on tb_anggaran.id_anggaran=tb_transrab.id_anggaran";
                                             $result=$db->query($query);
                                             $num_result=$result->num_rows;
-                                            if ($num_result > 0 ) { 
+                                            if ($num_result > 0 ) {
                                                 $no = 1;
                                                 while ($data=mysqli_fetch_assoc($result)) {
                                                 extract($data);
@@ -66,30 +38,27 @@
                                             <td><?php echo $no++; ?></td>
                                             <td><?php echo $tanggal; ?></td>
 
+                                            <td><?php echo $nm_anggaran; ?></td>
+
                                             <td><?php
-                                                $que = mysqli_query($db, "SELECT nm_anggaran FROM tb_anggaran WHERE id_anggaran='$id_anggaran'");
-                                                $cabang = mysqli_fetch_assoc($que);
-                                                echo $cabang['nm_anggaran'];
-                                                
-                                             ?></td>
-                                            
-                                            <td><?php 
                                                 $quer = mysqli_query($db, "SELECT nm_subbagian FROM tb_subbagian WHERE id_subbagian='$id_subbagian'");
                                                 $cab = mysqli_fetch_assoc($quer);
                                                 echo $cab['nm_subbagian'];
-                                                
+
                                             ?></td>
 
-                                            <?php 
+                                            <?php
                                             if ($approval == '0') {
                                                 ?>
                                                     <td>
-                                                     <a href="../../command/curd.php?approval=1&id=<?php echo $id_transrab; ?>" class="btn btn-success">Setuju</a> | 
-                                                     <a href="../../command/curd.php?approval=2&id=<?php echo $id_transrab; ?>" class="btn btn-danger">Tolak</a>
+                                                      <form action="../../command/curd.php?approval=1&id=<?php echo $id_transrab; ?>" method="post">
+                                                        <input type="submit" class="btn btn-success" value="Setuju" />
+                                                      </form> |
+                                                     <a href="../../command/curd.php?approval=2&id=<?php echo $id_transrab; ?>" class="btn btn-danger" name="post" id="post">Tolak</a>
                                                     </td>
                                             <?php } else { ?>
                                                     <td>
-                                                        <?php 
+                                                        <?php
                                                         if ($approval=='1'){
                                                             echo "Diterima";
                                                         }else if ($approval=='2'){
@@ -147,7 +116,7 @@
                             html += "<td>Diterima</td>"
                         } else {
                             html += "<td>Ditolak</td>"
-                        } 
+                        }
                     html += "</tr>"
                 })
 
@@ -163,4 +132,3 @@
 
     }
 </script>
- 

@@ -15,11 +15,9 @@ if (isset($_POST["tambah_cabang"])) {
 
   //id cabang
   $idCabang  = KodeOtomatis($db, 'tb_cabang', 'id_cabang', '', '', '');
-  // var_dump($nama);
-  // var_dump($idCabang);
 
-  // query
-  $sql_tambah = "INSERT INTO tb_cabang VALUES ('$idCabang', '$nama','1')";
+  //query
+  $sql_tambah = "INSERT INTO tb_cabang VALUES ('$idCabang', '$nama')";
   $query = mysqli_query($db, $sql_tambah);
 
   if ($query) {
@@ -297,7 +295,10 @@ if (isset($_GET["approval"])){
   $id = $_GET['id'];
 
   $sql = "UPDATE tb_transrab SET approval='$approval' WHERE id_transrab='$id'";
+  $sql1 = "INSERT INTO tb_notif(id_transrab, notif)VALUES ('$id', '1')";
   $query = mysqli_query($db, $sql);
+
+  $query1 = mysqli_query($db, $sql1);
 
   if( $query ){
         header('Location: ../pages/pusat/index.php?hal=data_rab');
@@ -317,7 +318,7 @@ if (isset($_GET["hapus"])){
       // buat query hapus
       $sql = "UPDATE tb_prodi SET status_aktif='0' WHERE id_prodi=$id";
       $query = mysqli_query($db, $sql);
-      
+
       // apakah query hapus berhasil?
       if( $query ){
           header('Location: ../pages/cabang/index.php?hal=data_prodi');
@@ -331,7 +332,7 @@ if (isset($_GET["hapus"])){
       // buat query hapus
       $sql = "UPDATE tb_bagian SET status_aktif='0' WHERE id_bagian=$id";
       $query = mysqli_query($db, $sql);
-      
+
       // apakah query hapus berhasil?
       if( $query ){
           header('Location: ../pages/pusat/index.php?hal=data_bagian');
@@ -345,7 +346,7 @@ if (isset($_GET["hapus"])){
       // buat query hapus
       $sql = "UPDATE tb_cabang SET status_aktif='0' WHERE id_cabang=$id";
       $query = mysqli_query($db, $sql);
-      
+
       // apakah query hapus berhasil?
       if( $query ){
           header('Location: ../pages/pusat/index.php?hal=data_cabang');
@@ -392,6 +393,7 @@ if (isset($_GET["hapus"])){
       if( $query ){
           header('Location: ../pages/pusat/index.php?hal=data_user');
       } else {
+        // var_dump($query);
           die("gagal menghapus...");
       }
   }
@@ -401,7 +403,7 @@ if (isset($_GET["hapus"])){
     // buat query hapus
     $sql = "UPDATE tb_prodi SET status_aktif='0' WHERE id_prodi=$id";
     $query = mysqli_query($db, $sql);
-    
+
     // apakah query hapus berhasil?
     if( $query ){
         header('Location: ../pages/cabang/index.php?hal=data_prodi');
@@ -415,7 +417,7 @@ if (isset($_GET["hapus"])){
     // buat query hapus
     $sql = "UPDATE tb_ta SET status_aktif='0' WHERE id_ta=$id";
     $query = mysqli_query($db, $sql);
-    
+
     // apakah query hapus berhasil?
     if( $query ){
         header('Location: ../pages/cabang/index.php?hal=data_tahun_akademik');
@@ -430,7 +432,7 @@ if (isset($_GET["hapus"])){
     // buat query hapus
     $sql = "UPDATE tb_mahasiswa SET status_aktif='0' WHERE id_mahasiswa=$id";
     $query = mysqli_query($db, $sql);
-    
+
     // apakah query hapus berhasil?
     if( $query ){
         header('Location: ../pages/cabang/index.php?hal=data_mahasiswa');
@@ -510,11 +512,11 @@ if (isset($_POST["tambah_mahasiswa"])) {
     else{
       $query = mysqli_query($db, "SELECT id_mahasiswa FROM tb_mahasiswa WHERE id_prodi = '$idProdi'");
       foreach ($query as $key => $value) {
-        
+
       }
         $end = end($value);
         $kodeOtomatis  = KodeOtomatis($db, 'tb_mahasiswa', $end, '', '', '');
-        
+
         // var_dump($kodeOtomatis);
         // die;
 
@@ -553,11 +555,11 @@ if (isset($_POST["tambah_mahasiswa"])) {
 //     else{
 //       $query = mysqli_query($db, "SELECT id_mahasiswa FROM tb_mahasiswa WHERE id_prodi = '$idProdi'");
 //       foreach ($query as $key => $value) {
-        
+
 //       }
 //         $end = end($value);
 //         $kodeOtomatis  = KodeOtomatis($db, 'tb_mahasiswa', $end, '', '', '');
-        
+
 //         // var_dump($kodeOtomatis);
 //         // die;
 
@@ -633,7 +635,7 @@ if (isset($_POST['edit_prodi'])) {
      $que = mysqli_query($db, $sql);
      $place = mysqli_fetch_assoc($que);
      // var_dump($place);
-   
+
     $nama = (empty($_POST["nama_prodi"])) ? $place['nm_prodi'] : $_POST["nama_prodi"] ;
     $izin = (empty($_POST["no_izin"])) ? $place['no_izin'] : $_POST["no_izin"] ;
     $ketua = (empty($_POST["nama_ketua"])) ? $place['ketua'] : $_POST["nama_ketua"] ;
@@ -650,6 +652,38 @@ if (isset($_POST['edit_prodi'])) {
     if($simpan) {
         // kalau berhasil alihkan ke halaman index.php dengan status=sukses
         header('Location: ../pages/cabang/index.php?hal=data_prodi');
+    }else{
+        // kalau gagal alihkan ke halaman indek.php dengan status=gagal
+        echo '<script>alert("User Gagal Disimpan !!");</script>';
+    }
+}
+
+if (isset($_POST['update_profile'])) {
+
+  // var_dump($_POST);
+  // die;
+
+    $id = $_POST["id_user"];
+    $sql = "SELECT * FROM tb_user WHERE id_user='$id'";
+    $que = mysqli_query($db, $sql);
+    $place = mysqli_fetch_assoc($que);
+
+
+    //ambil data
+    $name = (empty($_POST['name'])) ? $place['nm_user']: $_POST['name'];
+    $username = (empty($_POST['username'])) ? $place['username']: $_POST['username'];
+    $password = (empty($_POST['password'])) ? $place['password']: $_POST['password'];
+
+    // buat query
+    $sql_user = "UPDATE tb_user SET nm_user='$name', username='$username', password='$password' WHERE id_user='$id'";
+
+    // $query = mysqli_query($db, $sql_user);
+    $simpan = $db->query($sql_user);
+
+    // apakah query simpan berhasil?
+    if($simpan) {
+        // kalau berhasil alihkan ke halaman index.php dengan status=sukses
+        header('Location: ../pages/cabang/index.php?hal=update_profile');
     }else{
         // kalau gagal alihkan ke halaman indek.php dengan status=gagal
         echo '<script>alert("User Gagal Disimpan !!");</script>';
@@ -718,7 +752,7 @@ function KodeOtomatis($conn, $tabel, $id, $inisial, $index, $panjang)
   $query	= "SELECT max(".$id.") as max_id FROM `".$tabel."` WHERE ".$id." LIKE '".$inisial."%'";
   $data		= $conn->query($query)->fetch_array();
   $id_max	= $data['max_id'];
-  
+
   if($index=='' && $panjang=='')
   {
     $no_urut	= (int) $id_max;
@@ -732,7 +766,7 @@ function KodeOtomatis($conn, $tabel, $id, $inisial, $index, $panjang)
     $no_urut	= (int) substr($id_max, $index, $panjang);
   }
   $no_urut	= $no_urut + 1;
-  
+
   if($index=='' && $panjang=='')
   {
 	  $id_baru  = $no_urut;
@@ -750,7 +784,7 @@ function KodeOtomatis($conn, $tabel, $id, $inisial, $index, $panjang)
 
 // //pisahan
 // function Pisahan(){
-  
+
 
 //   return $endBagian;
 // }

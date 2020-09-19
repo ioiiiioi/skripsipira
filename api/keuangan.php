@@ -12,7 +12,7 @@ if (isset($_GET['id_mahasiswa']) && $_GET['id_mahasiswa']!="") {
          $row = mysqli_fetch_array($result);
          $amount = $row['nominal'];
          $tanggal = $row['tanggal'];
-         
+
          $sql_mhs = mysqli_query($db, "SELECT * FROM `tb_mahasiswa` WHERE id_mahasiswa=$order_id");
          $nama = mysqli_fetch_assoc($sql_mhs);
          $nama_mhs = $nama['nm_mahasiswa'];
@@ -38,7 +38,7 @@ if (isset($_GET['id_mahasiswa']) && $_GET['id_mahasiswa']!="") {
 else{
      response(NULL, NULL, NULL, NULL, NULL, 400,"Invalid Request");
      }
- 
+
 function response($order_id,$nama_mhs,$tanggal,$amount,$tahun_ajaran,$response_code,$response_desc){
  $response['id_mahasiswa'] = $order_id;
  $response['nama_mahasiswa'] = $nama_mhs;
@@ -46,9 +46,8 @@ function response($order_id,$nama_mhs,$tanggal,$amount,$tahun_ajaran,$response_c
  $response['amount'] = $amount;
  $response['response_code'] = $response_code;
  $response['response_desc'] = $response_desc;
- 
+
  $json_response = json_encode($response);
  echo $json_response;
 }
 ?>
-<!-- ENDPOINT [GET] http://localhost/skripsipira/api/keuangan.php?id_mahasiswa=['id_mahasiswa'] -->

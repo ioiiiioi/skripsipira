@@ -14,39 +14,83 @@
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Program Studi</th>
-                                            <th>Nomer Mahasiswa</th>
-                                            <th>Nama  Mahasiswa</th>
-                                            <th>E-mail</th>
-                                            <th>Nomer Telepon</th>
-                                            <th>Jenis Kelamin</th>
-                                            <th>Aksi</th>
+                                          <th>Program Studi</th>
+                                          <th>Nomer Mahasiswa</th>
+                                          <th>Nama  Mahasiswa</th>
+                                          <th>E-mail</th>
+                                          <th>Nomer Telepon</th>
+                                          <th>Jenis Kelamin</th>
+                                          <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
-                                        <?php
-                                            $query="SELECT tb_prodi.nm_prodi, tb_mahasiswa.id_mahasiswa, tb_mahasiswa.nm_mahasiswa, tb_mahasiswa.email, tb_mahasiswa.notlp, tb_mahasiswa.jkelamin FROM tb_mahasiswa INNER JOIN tb_prodi ON tb_mahasiswa.id_prodi=tb_prodi.id_prodi WHERE tb_mahasiswa.status_aktif='1'";
-                                            $result=$db->query($query);
-                                            $num_result=$result->num_rows;
-                                            if ($num_result > 0 ) { 
-                                                while ($data=mysqli_fetch_assoc($result)) {
-                                                extract($data);
-                                        ?>
-                                        <tr>
-                                            <td><?php echo $nm_prodi; ?></td>
-                                            <td><?php echo $id_mahasiswa; ?></td>
-                                            <td><?php echo $nm_mahasiswa; ?></td>
-                                            <td><?php echo $email; ?></td>
-                                            <td><?php echo $notlp; ?></td>
-                                            <td><?php echo $jkelamin; ?></td>
-                                            <td>
-                                                <a href="?hal=edit_data_mahasiswa&id=<?php echo $id_mahasiswa; ?>" class="btn btn-primary">Edit</a> | 
-                                                <a href="../../command/curd.php?hapus=mahasiswa&id=<?php echo $id_mahasiswa; ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data <?php echo $nm_mahasiswa; ?> ?')">Delete</a>
-                                            </td>
-                                        </tr>
+                                      <?php
+                                          $query="SELECT tb_prodi.nm_prodi, tb_mahasiswa.id_mahasiswa, tb_mahasiswa.nm_mahasiswa, tb_mahasiswa.email, tb_mahasiswa.notlp, tb_mahasiswa.jkelamin FROM tb_mahasiswa INNER JOIN tb_prodi ON tb_mahasiswa.id_prodi=tb_prodi.id_prodi WHERE tb_mahasiswa.status_aktif='1'";
+                                          $result=$db->query($query);
+                                          $num_result=$result->num_rows;
+                                          if ($num_result > 0 ) {
+                                              while ($data=mysqli_fetch_assoc($result)) {
+                                              extract($data);
+                                      ?>
+                                      <tr>
+                                          <td><?php echo $nm_prodi; ?></td>
+                                          <td><?php echo $id_mahasiswa; ?></td>
+                                          <td><?php echo $nm_mahasiswa; ?></td>
+                                          <td><?php echo $email; ?></td>
+                                          <td><?php echo $notlp; ?></td>
+                                          <td><?php echo $jkelamin; ?></td>
+                                          <td>
+                                              <a href="?hal=edit_data_mahasiswa&id=<?php echo $id_mahasiswa; ?>" class="btn btn-primary">Edit</a> |
+                                              <a href="../../command/curd.php?hapus=mahasiswa&id=<?php echo $id_mahasiswa; ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data <?php echo $nm_mahasiswa; ?> ?')">Delete</a>
+                                          </td>
+                                      </tr>
 
-                                        <?php }} ?>
+                                      <?php }} ?>
+
+                                      <!--<?php
+
+                                      function curl($url){
+                                          // persiapkan curl
+                                          $ch = curl_init();
+
+                                          // set url
+                                          curl_setopt($ch, CURLOPT_URL, $url);
+
+                                          // return the transfer as a string
+                                          curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+                                          // $output contains the output string
+                                          $output = curl_exec($ch);
+
+                                          // tutup curl
+                                          curl_close($ch);
+
+                                          // mengembalikan hasil curl
+                                          return $output;
+                                      }
+
+                                      $profile = curl('http://localhost/soa/api/Mahasiswa');
+
+                                      $data = json_decode($profile, TRUE);
+                                      ?>
+                                      <?php
+                                          $aa = $data['data'];
+                                          if(is_array($aa) || is_object($aa)){
+                                            foreach($aa as $row){
+
+                                           ?>
+
+  <tr>
+      <td><?php echo $row['id_prodi']; ?></td>
+      <td><?php echo $row['NIM']; ?></td>
+      <td><?php echo $row['nama_mahasiswa']; ?></td>
+      <td>
+          <a href="?hal=edit_data_mahasiswa&id=" class="btn btn-primary">Edit</a> |
+          <a href="../../command/curd.php?hapus=mahasiswa&id=" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data <?php echo $nm_mahasiswa; ?> ?')">Delete</a>
+      </td>
+  </tr>
+<?php }}?>-->
                                     </tbody>
                                 </table>
                             </div>
@@ -55,4 +99,3 @@
 
 
         <div class="clearfix"></div>
-

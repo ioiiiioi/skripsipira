@@ -1,4 +1,4 @@
-<?php 
+<?php
     if (!isset($_SESSION)) {
         session_start();
     }
@@ -20,7 +20,7 @@ if (isset($_SESSION["pusat"])) {
 
 
 <body>
-  
+
     <section class="content-header">
       <div class="container">
         <div class="col-lg-12">
@@ -32,7 +32,7 @@ if (isset($_SESSION["pusat"])) {
                   <form action="../../command/curd.php" method="post" class="">
                     <div class="form-group">
                       <div>
-                        <label> Pilih Bagian </label>
+                        <label> Pilih Sub Bagian </label>
                         <select class="form-control col-sm-8" name="idSubbagian">
                         <option style="font-weight: bold;" hidden="true"> Pilih Subbagian </option>
                             <?php
@@ -40,7 +40,7 @@ if (isset($_SESSION["pusat"])) {
                                 $query="SELECT * FROM tb_subbagian";
                                 $result=$db->query($query);
                                 $num_result=$result->num_rows;
-                                   if ($num_result > 0 ) { 
+                                   if ($num_result > 0 ) {
                                    while ($data=mysqli_fetch_assoc($result)) {
                                 extract($data);
                             ?>

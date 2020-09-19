@@ -8,9 +8,11 @@
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title ">Data Cash Out</strong>
+                                <div class="col">
                                 <a href="?hal=tambah_cash_out" class="btn btn-success float-right ">Tambah</a>
-                                
-                                <a href="?hal=cetak_cash_out" class="btn btn-info float-right ">Cetak</a>
+
+                                <a href="cetak_cash_out.php" id='invoice-print-button' class="btn btn-info float-left ">Cetak</a>
+                              </div>
                             </div>
                             <div class="card-body">
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
@@ -29,21 +31,21 @@
                                                 $query="SELECT tb_cabang.nm_cabang, tb_cashout.tanggal, tb_cashout.tujuan, tb_cashout.uraian, tb_cashout.nominal FROM tb_cashout INNER JOIN tb_cabang ON tb_cashout.id_cabang=tb_cabang.id_cabang";
                                                 $result=$db->query($query);
                                                 $num_result=$result->num_rows;
-                                                if ($num_result > 0 ) { 
+                                                if ($num_result > 0 ) {
                                                     while ($data=mysqli_fetch_assoc($result)) {
                                                     extract($data);
                                                     $i++;
-                                                   
+
                                         ?>
                                         <tr>
                                             <td><?php echo $i; ?></td>
-                                            <td><?php echo $tanggal; ?></td>
+                                            <td><?php echo date('d F Y', strtotime($tanggal)); ?></td>
                                             <td><?php echo $uraian; ?></td>
                                             <td><?php echo $nm_cabang; ?></td>
                                             <td><?php echo $nominal; ?></td>
                                         </tr>
-                                        <?php  }} ?>  
-                                       
+                                        <?php  }} ?>
+
                                     </tbody>
                                 </table>
                             </div>

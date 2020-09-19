@@ -10,7 +10,7 @@
                               <strong class="card-title ">Pengajuan RAB</strong>
                               <a href="?hal=form_pengajuan_rab" class="btn btn-success float-right ">Pengajuan RAB</a>
                           </div>
-                           <div class="card-header">
+                           <!--<div class="card-header">
                                 <div class="col">
                                 <select class="col-md-2 form-control float-right" onchange="RABFiltering()" id="filter_subbagian" required>
                                     <option selected='selected' hidden='true' value="">Pilih Subbagian</option>
@@ -55,7 +55,7 @@
                                 </select>
 
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="card-body">
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <thead>
@@ -67,7 +67,6 @@
                                             <th>Anggaran</th>
                                             <th>Keterangan</th>
                                             <th>Nominal</th>
-                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody id="data_rab">
@@ -77,10 +76,10 @@
                                           // $param_tahun = date('Y-m-d',$param_tahunnya);
                                           $nom_array = array();
                                           // echo $param_tahun;
-                                          
+
                                           $query="SELECT * FROM tb_transrab";
                                           $result=mysqli_query($db,$query);
-                                          if ($result ) { 
+                                          if ($result ) {
                                              $num_result=$result->num_rows;
                                               while ($data=mysqli_fetch_assoc($result)) {
                                               extract($data);
@@ -94,33 +93,21 @@
                                               <?php
                                                  $q_subbagian = mysqli_query($db, "SELECT nm_subbagian FROM tb_subbagian WHERE id_subbagian = '$id_subbagian'");
                                                  $sub_bag = mysqli_fetch_assoc($q_subbagian);
-                                                 echo $sub_bag['nm_subbagian']; 
+                                                 echo $sub_bag['nm_subbagian'];
                                                ?>
                                             </td>
-                                            <td><?php 
+                                            <td><?php
                                                $q_ta = mysqli_query($db, "SELECT tahun FROM tb_ta WHERE id_ta = '$id_ta'");
                                                $ta = mysqli_fetch_assoc($q_ta);
-                                               echo $ta['tahun']; 
+                                               echo $ta['tahun'];
                                             ?></td>
-                                            <td><?php 
+                                            <td><?php
                                                $q_anggaran = mysqli_query($db, "SELECT nm_anggaran FROM tb_anggaran WHERE id_anggaran = '$id_anggaran'");
                                                $anggaran = mysqli_fetch_assoc($q_anggaran);
-                                               echo $anggaran['nm_anggaran']; 
+                                               echo $anggaran['nm_anggaran'];
                                             ?></td>
                                             <td><?php echo $keterangan; ?></td>
                                             <td><?php echo number_format($nominal); ?></td>
-                                            <td><?php
-                                            if ($approval == 0){
-                                              echo "Diajukan";
-                                            }
-                                            elseif($approval == 1){
-                                              echo"Diterima";
-                                            }
-                                            else{
-                                              echo"Ditolak";
-                                            }
-
-                                            ?></td>
                                         </tr>
                                         <?php }} echo "Total : ",number_format(array_sum($nom_array)); ?>
                                     </tbody>
@@ -128,8 +115,42 @@
                             </div>
                         </div>
                     </div>
-                    
+
         <div class="clearfix"></div>
+
+        <script type="text/javascript">
+$(document).ready(function(){
+// updating the view with notifications using ajax
+function load_notification(view = '')
+{
+ $.ajax({
+  url:"fetch.php",
+  method:"POST",
+  data:{view:view},
+  dataType:"json",
+  success:function(data)
+  {
+   $('.dropdown-menu').html(data.notification);
+   if(data.unseen_notification > 0)
+   {
+    $('.count').html(data.unseen_notification);
+   }
+  }
+ });
+}
+
+load_notification();
+// submit form and get new records
+// load new notifications
+$(document).on('click', '.dropdown-toggle', function(){
+ $('.count').html('');
+ load_notification('yes');
+});
+setInterval(function(){
+ load_notification();
+}, 5000);
+});
+</script>
 
 <script type="text/javascript">
     function RABFiltering() {
@@ -157,15 +178,6 @@
                       html += "<td>"+val.nm_anggaran+"</td>"
                       html += "<td>"+val.keterangan+"</td>"
                       html += "<td>"+val.nominal+"</td>"
-                      if (parseInt(val.approval) == 0){
-                        html += "<td>Diajukan</td>"
-                      }
-                      else if(parseInt(val.approval) == 1){
-                        html += "<td>Diterima</td>"
-                      }
-                      else{
-                        html += "<td>Ditolak</td>"
-                      }
                     html += "</tr>"
                 })
 

@@ -1,4 +1,4 @@
-<?php 
+<?php
 	if (!isset($_SESSION)) {
         session_start();
     }
@@ -36,6 +36,7 @@ if (isset($_SESSION["keuangan"])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="assets/css/style.css">
+		<link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
     <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
@@ -105,7 +106,7 @@ if (isset($_SESSION["keuangan"])) {
     <!-- Right Panel -->
 
     <div id="right-panel" class="right-panel">
-               
+
         <!-- Header-->
         <header id="header" class="header">
             <div class="top-left">
@@ -118,7 +119,7 @@ if (isset($_SESSION["keuangan"])) {
             <div class="top-right">
                 <div class="header-menu">
                     <div class="header-left">
-                        
+
                     </div>
 
                     <div class="user-area dropdown float-right">
@@ -151,7 +152,7 @@ if (isset($_SESSION["keuangan"])) {
                     </div>
                 </div>
             </div>
-        
+
                 <?php
                     $hal = @$_GET['hal'];
                     $modul = "";
@@ -176,7 +177,7 @@ if (isset($_SESSION["keuangan"])) {
         <div class="clearfix"></div>
 
     </div><!-- /#right-panel -->
-        
+
 
 
         <div class="clearfix"></div>

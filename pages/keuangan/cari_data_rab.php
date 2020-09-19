@@ -69,7 +69,6 @@
                                           <th>Anggaran</th>
                                           <th>Keterangan</th>
                                           <th>Nominal</th>
-                                          <th>Aksi</th>
                                       </tr>
                                   </thead>
                                   <tbody id="data_rab">
@@ -79,8 +78,11 @@
                                         // $param_tahun = date('Y-m-d',$param_tahunnya);
                                         $nom_array = array();
                                         // echo $param_tahun;
+                                        $ta = $_POST['id_ta'];
+                                        $anggaran = $_POST['id_anggaran'];
 
-                                        $query="SELECT * FROM tb_transrab";
+                                        $query="SELECT * FROM tb_transrab join tb_subbagian using (id_subbagian) join tb_ta using (id_ta) join tb_anggaran using (id_anggaran)
+                                        where tb_transrab.id_ta='$ta' and tb_transrab.id_anggaran='$anggaran'";
                                         $result=mysqli_query($db,$query);
                                         if ($result ) {
                                            $num_result=$result->num_rows;
@@ -101,24 +103,25 @@
                                           </td>
                                           <td><?php
                                              $q_ta = mysqli_query($db, "SELECT tahun FROM tb_ta WHERE id_ta = '$id_ta'");
-                                             $ta = mysqli_fetch_assoc($q_ta);
-                                             echo $ta['tahun'];
+                                             $tahun = mysqli_fetch_assoc($q_ta);
+                                             echo $tahun['tahun'];
                                           ?></td>
                                           <td><?php
                                              $q_anggaran = mysqli_query($db, "SELECT nm_anggaran FROM tb_anggaran WHERE id_anggaran = '$id_anggaran'");
-                                             $anggaran = mysqli_fetch_assoc($q_anggaran);
-                                             echo $anggaran['nm_anggaran'];
+                                             $angg = mysqli_fetch_assoc($q_anggaran);
+                                             echo $angg['nm_anggaran'];
                                           ?></td>
                                           <td><?php echo $keterangan; ?></td>
                                           <td><?php echo number_format($nominal); ?></td>
-                                          <td>
-                                           <center><a href="download.php?&id=<?php echo $id_transrab; ?>" class="btn btn-success">Download</a></center>
-                                          </td>
                                       </tr>
-                                      <?php }}  ?>
+
+
                                   </tbody>
                               </table>
-
+                              <div class="col-sm-12 mt-5">
+                                  <a href="cetak.php?&id_ta=<?php echo $ta; ?>&id_anggaran=<?php echo $anggaran; ?>" class="btn btn-primary float-right"  target="_blank"><i class="fa fa-print"></i>  Cetak</a>
+                              </div>
+                              <?php }}  ?>
                             </div>
                         </div>
                     </div>

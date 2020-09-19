@@ -9,10 +9,10 @@
                         <a href="?hal=tambah_program_studi" class="btn btn-success float-right ">Tambah Data</a>
                     </div>
                     <div class="card-body">
-                        <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                        <table  class="table table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>ID</th>
                                     <th>Nama Program Studi</th>
                                     <th>No Izin</th>
                                     <th>Ketua Prodi</th>
@@ -24,10 +24,10 @@
                             <tbody>
 
                                 <?php
-                                            $query="SELECT * FROM tb_prodi WHERE status_aktif='1'";
+                                            $query="SELECT * FROM tb_prodi WHERE status_aktif='1' ORDER BY jenjang ASC";
                                             $result=$db->query($query);
                                             $num_result=$result->num_rows;
-                                            if ($num_result > 0 ) { 
+                                            if ($num_result > 0 ) {
                                                 while ($data=mysqli_fetch_assoc($result)) {
                                                 extract($data);
                                         ?>
@@ -64,3 +64,6 @@
                     </div>
                 </div>
             </div>
+          </div>
+        </div>
+      </div>

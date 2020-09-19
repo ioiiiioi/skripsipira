@@ -28,7 +28,7 @@
                                     <tbody>
                                     <?php
                                         $no=1;
-                                        $query="SELECT * FROM tb_user";
+                                        $query="SELECT * FROM tb_user WHERE status_aktif='1'";
                                         $result=$db->query($query);
                                         $num_result=$result->num_rows;
                                         if ($num_result > 0 ) { 

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Mar 2020 pada 09.10
--- Versi server: 10.4.11-MariaDB
--- Versi PHP: 7.3.13
+-- Generation Time: 06 Sep 2020 pada 15.45
+-- Versi Server: 10.1.26-MariaDB
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -48,7 +48,7 @@ CREATE TABLE `tb_anggaran` (
   `id_anggaran` int(10) NOT NULL,
   `id_subbagian` int(10) NOT NULL,
   `nm_anggaran` varchar(50) NOT NULL,
-  `status_aktif` tinyint(1) NOT NULL DEFAULT 1
+  `status_aktif` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -56,7 +56,7 @@ CREATE TABLE `tb_anggaran` (
 --
 
 INSERT INTO `tb_anggaran` (`id_anggaran`, `id_subbagian`, `nm_anggaran`, `status_aktif`) VALUES
-(111, 11, 'asdasdasd', 1),
+(111, 11, 'asdasdasd', 0),
 (112, 11, 'adsadasd', 1),
 (113, 11, 'asdascaxasx', 1),
 (114, 11, 'asdasd', 0),
@@ -221,7 +221,7 @@ INSERT INTO `tb_anggaran` (`id_anggaran`, `id_subbagian`, `nm_anggaran`, `status
 CREATE TABLE `tb_bagian` (
   `id_bagian` char(10) NOT NULL,
   `nm_bagian` varchar(15) NOT NULL,
-  `status_aktif` tinyint(1) NOT NULL DEFAULT 1
+  `status_aktif` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -234,7 +234,8 @@ INSERT INTO `tb_bagian` (`id_bagian`, `nm_bagian`, `status_aktif`) VALUES
 ('0003', 'Keuangan', 1),
 ('0004', 'PMS', 1),
 ('0005', 'SDM', 1),
-('0006', 'Umum', 1);
+('0006', 'Umum', 1),
+('0007', 'Coba', 0);
 
 -- --------------------------------------------------------
 
@@ -245,7 +246,7 @@ INSERT INTO `tb_bagian` (`id_bagian`, `nm_bagian`, `status_aktif`) VALUES
 CREATE TABLE `tb_cabang` (
   `id_cabang` int(10) NOT NULL,
   `nm_cabang` varchar(30) NOT NULL,
-  `status_aktif` tinyint(1) NOT NULL DEFAULT 1
+  `status_aktif` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -319,7 +320,7 @@ CREATE TABLE `tb_jbayar` (
   `id_ta` int(11) NOT NULL,
   `nm_jbayar` varchar(50) NOT NULL,
   `nominal` int(10) NOT NULL,
-  `status_aktif` tinyint(1) NOT NULL DEFAULT 1
+  `status_aktif` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -335,7 +336,7 @@ CREATE TABLE `tb_mahasiswa` (
   `email` varchar(20) NOT NULL,
   `notlp` char(14) NOT NULL,
   `jkelamin` enum('Laki-Laki','Perempuan') NOT NULL,
-  `status_aktif` tinyint(1) NOT NULL DEFAULT 1
+  `status_aktif` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -346,6 +347,25 @@ INSERT INTO `tb_mahasiswa` (`id_mahasiswa`, `id_prodi`, `nm_mahasiswa`, `email`,
 (100011, '10001', 'mba mba ganjen', 'dasd@gar.com', '132123', 'Perempuan', 1),
 (2020100031, '10003', 'anak kuda', 'kuda@gmail.com', '08991795230', 'Laki-Laki', 1),
 (2147483647, '10003', 'kuda', 'kuda@gmail.com', '08991795230', 'Perempuan', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_notif`
+--
+
+CREATE TABLE `tb_notif` (
+  `id_notif` int(11) NOT NULL,
+  `id_transrab` int(11) NOT NULL,
+  `notif` enum('0','1','2') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tb_notif`
+--
+
+INSERT INTO `tb_notif` (`id_notif`, `id_transrab`, `notif`) VALUES
+(1, 5, '1');
 
 -- --------------------------------------------------------
 
@@ -385,7 +405,7 @@ CREATE TABLE `tb_prodi` (
   `semester` char(2) NOT NULL,
   `ketua` varchar(50) NOT NULL,
   `no_izin` char(10) NOT NULL,
-  `status_aktif` tinyint(1) NOT NULL DEFAULT 1
+  `status_aktif` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -398,7 +418,7 @@ INSERT INTO `tb_prodi` (`id_prodi`, `nm_prodi`, `jenjang`, `semester`, `ketua`, 
 ('10003', 'Manajemen Transportasi Udara', 'S1', '1', 'Pacman Purwanto', 'QWERTY3456', 1),
 ('10004', 'pemantau udara', 'D3', '1', 'bapak naga', 'QWERTY9786', 1),
 ('10005', 'mba lucu', 'S1', '1', 'zeus', 'QWERTY0937', 1),
-('10006', 'FIeld Crew', 'S1', '2', 'Sunatyo', 'QWERTY2323', 1),
+('10006', 'FIeld Crew', 'S1', '2', 'Budi', 'QWERTY2323', 1),
 ('10007', 'Angkut Barang', 'D3', '3', 'soto ayam', '123123sdas', 1);
 
 -- --------------------------------------------------------
@@ -413,8 +433,8 @@ CREATE TABLE `tb_rab` (
   `id_subbagian` int(10) NOT NULL,
   `id_anggaran` int(10) NOT NULL,
   `nominal_anggaran` bigint(20) NOT NULL,
-  `approval` tinyint(1) NOT NULL DEFAULT 0,
-  `status_aktif` tinyint(1) NOT NULL DEFAULT 1
+  `approval` tinyint(1) NOT NULL DEFAULT '0',
+  `status_aktif` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -427,7 +447,7 @@ CREATE TABLE `tb_subbagian` (
   `id_subbagian` int(10) NOT NULL,
   `id_bagian` char(10) NOT NULL,
   `nm_subbagian` varchar(25) NOT NULL,
-  `status_aktif` tinyint(1) NOT NULL DEFAULT 1
+  `status_aktif` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -472,7 +492,7 @@ CREATE TABLE `tb_ta` (
   `selesai` date NOT NULL,
   `semester` varchar(10) NOT NULL,
   `tahun` varchar(5) NOT NULL,
-  `status_aktif` tinyint(1) NOT NULL DEFAULT 1
+  `status_aktif` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -500,7 +520,7 @@ CREATE TABLE `tb_transrab` (
   `keterangan` varchar(50) NOT NULL,
   `tanggal` date NOT NULL,
   `nominal` int(10) NOT NULL,
-  `approval` tinyint(1) NOT NULL DEFAULT 0
+  `approval` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -508,11 +528,10 @@ CREATE TABLE `tb_transrab` (
 --
 
 INSERT INTO `tb_transrab` (`id_transrab`, `id_anggaran`, `id_subbagian`, `id_user`, `id_ta`, `keterangan`, `tanggal`, `nominal`, `approval`) VALUES
-(4, 411, 41, 3, 4, 'asdsadsadsa', '2020-04-26', 900000, 1),
-(5, 111, 11, 3, 4, 'ygyygyg', '2020-03-26', 300000, 2),
-(6, 112, 21, 3, 3, 'yuioph', '2020-02-26', 500000, 1),
-(7, 411, 22, 3, 3, 'qazxwswed', '2020-01-26', 150000, 1),
-(8, 113, 32, 3, 3, 'tyuiop', '2019-01-26', 200000, 2),
+(5, 111, 11, 3, 4, 'ygyygyg', '2020-03-26', 300000, 1),
+(6, 112, 21, 3, 3, 'yuioph', '2020-02-26', 500000, 0),
+(7, 411, 22, 3, 3, 'qazxwswed', '2020-01-26', 150000, 0),
+(8, 113, 32, 3, 3, 'tyuiop', '2019-01-26', 200000, 0),
 (9, 112, 11, 3, 2, 'asdasdad', '2020-02-16', 2222222, 0),
 (10, 113, 21, 3, 3, 'asdads', '2020-02-16', 11111, 0),
 (11, 516, 53, 3, 1, 'asdasdq', '2020-02-28', 3333, 0),
@@ -534,7 +553,7 @@ CREATE TABLE `tb_user` (
   `email` varchar(20) NOT NULL,
   `jkelamin` enum('Laki-Laki','Perempuan') NOT NULL,
   `luser` enum('Manager Keuangan','Keuangan Pusat','Keuangan Cabang') NOT NULL,
-  `status_aktif` tinyint(1) NOT NULL DEFAULT 1
+  `status_aktif` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -544,16 +563,15 @@ CREATE TABLE `tb_user` (
 INSERT INTO `tb_user` (`id_user`, `id_cabang`, `nm_user`, `username`, `password`, `notlp`, `email`, `jkelamin`, `luser`, `status_aktif`) VALUES
 (1, 1, 'naga', 'admin', 'admin', '082199333364', 'naga@enaena.com', 'Perempuan', 'Manager Keuangan', 1),
 (2, 2, 'hadinoto', 'hadinoto', 'hadinoto', '09889966678', 'indahoktapiani43@gma', 'Laki-Laki', 'Keuangan Pusat', 1),
-(3, 3, 'naga', 'naga', 'naga', '082199333364', 'naga@gmail.com', 'Laki-Laki', 'Keuangan Cabang', 1),
-(4, 1, 'superadmin', 'super', 'ashiap', '109389102', 'asdadln@dsa.com', 'Laki-Laki', 'Keuangan Pusat', 1),
-(5, 1, 'admin cabang', 'cabang', 'cabang', '12371', 'adsdasd@dasd.com', 'Laki-Laki', 'Manager Keuangan', 1);
+(3, 3, 'naga', 'nagabonar', 'naga', '082199333364', 'naga@gmail.com', 'Laki-Laki', 'Keuangan Cabang', 1),
+(4, 1, 'superadmin', 'super', 'ashiap', '109389102', 'asdadln@dsa.com', 'Laki-Laki', 'Keuangan Pusat', 1);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `id_pengajuan`
+-- Indexes for table `id_pengajuan`
 --
 ALTER TABLE `id_pengajuan`
   ADD PRIMARY KEY (`id_pengajuan`),
@@ -561,26 +579,26 @@ ALTER TABLE `id_pengajuan`
   ADD KEY `id_ta` (`id_ta`);
 
 --
--- Indeks untuk tabel `tb_anggaran`
+-- Indexes for table `tb_anggaran`
 --
 ALTER TABLE `tb_anggaran`
   ADD PRIMARY KEY (`id_anggaran`),
   ADD KEY `fkbagian2` (`id_subbagian`);
 
 --
--- Indeks untuk tabel `tb_bagian`
+-- Indexes for table `tb_bagian`
 --
 ALTER TABLE `tb_bagian`
   ADD PRIMARY KEY (`id_bagian`);
 
 --
--- Indeks untuk tabel `tb_cabang`
+-- Indexes for table `tb_cabang`
 --
 ALTER TABLE `tb_cabang`
   ADD PRIMARY KEY (`id_cabang`);
 
 --
--- Indeks untuk tabel `tb_cashin`
+-- Indexes for table `tb_cashin`
 --
 ALTER TABLE `tb_cashin`
   ADD PRIMARY KEY (`id_cashin`),
@@ -588,7 +606,7 @@ ALTER TABLE `tb_cashin`
   ADD KEY `id_cabang` (`id_cabang`);
 
 --
--- Indeks untuk tabel `tb_cashout`
+-- Indexes for table `tb_cashout`
 --
 ALTER TABLE `tb_cashout`
   ADD PRIMARY KEY (`id_cashout`),
@@ -596,7 +614,7 @@ ALTER TABLE `tb_cashout`
   ADD KEY `id_cabang` (`id_cabang`);
 
 --
--- Indeks untuk tabel `tb_jbayar`
+-- Indexes for table `tb_jbayar`
 --
 ALTER TABLE `tb_jbayar`
   ADD PRIMARY KEY (`id_jbayar`),
@@ -604,14 +622,20 @@ ALTER TABLE `tb_jbayar`
   ADD KEY `id_ta` (`id_ta`);
 
 --
--- Indeks untuk tabel `tb_mahasiswa`
+-- Indexes for table `tb_mahasiswa`
 --
 ALTER TABLE `tb_mahasiswa`
   ADD PRIMARY KEY (`id_mahasiswa`),
   ADD KEY `id_prodi` (`id_prodi`);
 
 --
--- Indeks untuk tabel `tb_preg`
+-- Indexes for table `tb_notif`
+--
+ALTER TABLE `tb_notif`
+  ADD PRIMARY KEY (`id_notif`);
+
+--
+-- Indexes for table `tb_preg`
 --
 ALTER TABLE `tb_preg`
   ADD PRIMARY KEY (`id_preg`),
@@ -621,13 +645,13 @@ ALTER TABLE `tb_preg`
   ADD KEY `id_prodi` (`id_prodi`);
 
 --
--- Indeks untuk tabel `tb_prodi`
+-- Indexes for table `tb_prodi`
 --
 ALTER TABLE `tb_prodi`
   ADD PRIMARY KEY (`id_prodi`);
 
 --
--- Indeks untuk tabel `tb_rab`
+-- Indexes for table `tb_rab`
 --
 ALTER TABLE `tb_rab`
   ADD PRIMARY KEY (`id`),
@@ -636,20 +660,20 @@ ALTER TABLE `tb_rab`
   ADD KEY `id_ta` (`id_ta`);
 
 --
--- Indeks untuk tabel `tb_subbagian`
+-- Indexes for table `tb_subbagian`
 --
 ALTER TABLE `tb_subbagian`
   ADD PRIMARY KEY (`id_subbagian`),
   ADD KEY `fkbagian1` (`id_bagian`);
 
 --
--- Indeks untuk tabel `tb_ta`
+-- Indexes for table `tb_ta`
 --
 ALTER TABLE `tb_ta`
   ADD PRIMARY KEY (`id_ta`);
 
 --
--- Indeks untuk tabel `tb_transrab`
+-- Indexes for table `tb_transrab`
 --
 ALTER TABLE `tb_transrab`
   ADD PRIMARY KEY (`id_transrab`),
@@ -659,93 +683,99 @@ ALTER TABLE `tb_transrab`
   ADD KEY `id_ta` (`id_ta`);
 
 --
--- Indeks untuk tabel `tb_user`
+-- Indexes for table `tb_user`
 --
 ALTER TABLE `tb_user`
   ADD PRIMARY KEY (`id_user`),
   ADD KEY `id_cabang` (`id_cabang`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `id_pengajuan`
+-- AUTO_INCREMENT for table `id_pengajuan`
 --
 ALTER TABLE `id_pengajuan`
   MODIFY `id_pengajuan` int(10) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_anggaran`
+-- AUTO_INCREMENT for table `tb_anggaran`
 --
 ALTER TABLE `tb_anggaran`
   MODIFY `id_anggaran` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=562;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_cabang`
+-- AUTO_INCREMENT for table `tb_cabang`
 --
 ALTER TABLE `tb_cabang`
-  MODIFY `id_cabang` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_cabang` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_cashin`
+-- AUTO_INCREMENT for table `tb_cashin`
 --
 ALTER TABLE `tb_cashin`
   MODIFY `id_cashin` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_cashout`
+-- AUTO_INCREMENT for table `tb_cashout`
 --
 ALTER TABLE `tb_cashout`
   MODIFY `id_cashout` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_jbayar`
+-- AUTO_INCREMENT for table `tb_jbayar`
 --
 ALTER TABLE `tb_jbayar`
   MODIFY `id_jbayar` int(10) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_mahasiswa`
+-- AUTO_INCREMENT for table `tb_mahasiswa`
 --
 ALTER TABLE `tb_mahasiswa`
-  MODIFY `id_mahasiswa` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2147483648;
+  MODIFY `id_mahasiswa` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2147483647;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_preg`
+-- AUTO_INCREMENT for table `tb_notif`
+--
+ALTER TABLE `tb_notif`
+  MODIFY `id_notif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tb_preg`
 --
 ALTER TABLE `tb_preg`
   MODIFY `id_preg` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_rab`
+-- AUTO_INCREMENT for table `tb_rab`
 --
 ALTER TABLE `tb_rab`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_subbagian`
+-- AUTO_INCREMENT for table `tb_subbagian`
 --
 ALTER TABLE `tb_subbagian`
   MODIFY `id_subbagian` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_ta`
+-- AUTO_INCREMENT for table `tb_ta`
 --
 ALTER TABLE `tb_ta`
   MODIFY `id_ta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_transrab`
+-- AUTO_INCREMENT for table `tb_transrab`
 --
 ALTER TABLE `tb_transrab`
   MODIFY `id_transrab` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_user`
+-- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id_user` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_user` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
